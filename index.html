@@ -200,6 +200,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -261,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/11/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2019/02/11/hello-world/" itemprop="url">Swift中的引用与值类型</a></h1>
         
 
         <div class="post-meta">
@@ -284,18 +294,30 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/11/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/11/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -322,18 +344,25 @@
 
       
         
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+          <p><a href="https://www.raywenderlich.com/9481-reference-vs-value-types-in-swift" target="_blank" rel="noopener">原文</a></p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png" alt="mylogo"></p>
+<p>通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。</p>
+<p>如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 <strong>值类型</strong> 的偏爱要超过 <strong>引用类型</strong>。</p>
+<p>在本教程中，您将学习到：</p>
+<ul>
+<li>值与引用类型的主要概念</li>
+<li>两者之间的差异</li>
+<li>如何选择使用哪个类型</li>
+</ul>
+<p>当您了解每种类型的主要概念时，您将解决现实中的问题。此外，您将学习更多高级的概念并发现两者微妙但重要的观点。</p>
+<p>不论您是来自Objective-c背景，还是您对Swift更精通，您一定会学到一些关于Swift输入输出的细节。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/11/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -422,6 +451,15 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
 
@@ -452,10 +490,10 @@
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
-                Links
+                友情链接
               </div>
               <ul class="links-of-blogroll-list">
                 
@@ -563,10 +601,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -608,12 +645,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -650,14 +682,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://jesse.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
 
 
 
@@ -670,6 +694,10 @@
   
 
 
+
+
+
+  
 
 
 

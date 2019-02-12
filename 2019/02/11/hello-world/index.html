@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
+<meta property="og:title" content="Swift中的引用与值类型">
 <meta property="og:url" content="http://yoursite.com/2019/02/11/hello-world/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-11T07:23:43.000Z">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/08/value-reference.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/08/value-value.png">
+<meta property="og:updated_time" content="2019-02-12T10:28:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="Swift中的引用与值类型">
+<meta name="twitter:description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
+<meta name="twitter:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png">
 
 
 
@@ -125,7 +129,7 @@
 
 
 
-  <title>Hello World | Jesse's Blog</title>
+  <title>Swift中的引用与值类型 | Jesse's Blog</title>
   
 
 
@@ -200,6 +204,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -259,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">Swift中的引用与值类型</h1>
         
 
         <div class="post-meta">
@@ -282,18 +296,30 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/11/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/11/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -319,15 +345,103 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p><a href="https://www.raywenderlich.com/9481-reference-vs-value-types-in-swift" target="_blank" rel="noopener">原文</a></p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png" alt="mylogo"></p>
+<p>通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。</p>
+<p>如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 <strong>值类型</strong> 的偏爱要超过 <strong>引用类型</strong>。</p>
+<p>在本教程中，您将学习到：</p>
+<ul>
+<li>值与引用类型的主要概念</li>
+<li>两者之间的差异</li>
+<li>如何选择使用哪个类型</li>
+</ul>
+<p>当您了解每种类型的主要概念时，您将解决现实中的问题。此外，您将学习更多高级的概念并发现两者微妙但重要的观点。</p>
+<p>不论您是来自Objective-c背景，还是您对Swift更精通，您一定会学到一些关于Swift输入输出的细节。</p>
+<a id="more"></a>
+<h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>首先，新建一个playground，在Xcode选择File-&gt;New-&gt;Playground…并命名playground为ReferenceTypes。</p>
+<blockquote>
+<p>注：您可以选择任何平台，因为本教程是与平台无关的，只关注Swift语言方面。</p>
+</blockquote>
+<p>点击 <strong>下一步</strong>,选择一个方便的位置保存playground，点击 <strong>创建</strong>并打开它。</p>
+<h1 id="引用类型与值类型"><a href="#引用类型与值类型" class="headerlink" title="引用类型与值类型"></a>引用类型与值类型</h1><p>那么两者类型的核心区别是什么？简单一句话来概括就是引用类型共享同一个数据拷贝，而值类型保持其唯一的数据拷贝。</p>
+<p>Swift将引用类型表示为类，这和Objective-c类似，所有从NSObject继承的内容都存储为引用类型。</p>
+<p>在Swift中有许多值类型，例如结构体、枚举、元组。您可能不知道Objective-c也有用值类型，表示字面量的像NSInteger甚至C结构如CGPoint。</p>
+<p>为了更好的理解两者的差异，最好是先从认识Objective-c的引用类型开始。</p>
+<h1 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h1><p>引用类型是一个可以由多个变量传递并引用的共享实例。用一个例子能很好的说明这一点。</p>
+<p>添加下面这段代码到你的playground中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Reference Types:</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> wasFed = <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这个类表示表示🐶是否被喂养，添加下面这段代码来创建你的🐶的实例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</span><br></pre></td></tr></table></figure>
+<p>这是指向存储🐶的内存地址。添加如下代码去添加另外一个对象来持有相同🐶实例的引用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> puppy = dog</span><br></pre></td></tr></table></figure>
+<p>因为dog对象是一个内存地址的引用，puppy对象指向内存中相同的数据。通过设置变量<strong>wasFed</strong>值为true：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">puppy.wasFed = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>puppy 和 dog 两个对象指向同一个内存地址。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/08/value-reference.png" alt="address"></p>
+<p>因此你期望修改其中一个的值另一个值也会被更改。通过在playground中观察属性的值来检查判断是否正确：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dog.wasFed     <span class="comment">// true</span></span><br><span class="line">puppy.wasFed   <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>更改一个实例会影响另一个因为他们引用同一个对象，这正是你在Objective-c所期望的。</p>
+<p>#值类型</p>
+<p>值类型和引用类型完全的不同，您将使用一些简单的Swift源语言来探索它。</p>
+<p>将以下的Int变量和相应的操作添加到playground中去：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Value Types:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">42</span></span><br><span class="line"><span class="keyword">var</span> b = a</span><br><span class="line">b += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">a    <span class="comment">// 42</span></span><br><span class="line">b    <span class="comment">// 43</span></span><br></pre></td></tr></table></figure>
+<p>您觉得变量a和b相当吗？很显然a等于42，而b等于43。如果您将他们声明为引用类型的话，a和b都将等于43，因为他们指向相同的内存地址。</p>
+<p>对于任何其他值类型的也是如此。在你的playground中实现下面的Cat 结构体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Cat</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> wasFed = <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> cat = <span class="type">Cat</span>()</span><br><span class="line"><span class="keyword">var</span> kitty = cat</span><br><span class="line">kitty.wasFed = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">cat.wasFed        <span class="comment">// false</span></span><br><span class="line">kitty.wasFed      <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>这里展示了引用和值类型微妙但重要的差异：设置kitty的wasFed变量并没有影响到cat，kitty变量接受一个cat的值拷贝而不是引用。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/08/value-value.png" alt="cat"></p>
+<p>好像你的猫今晚要饿肚子了^_^</p>
+<p>虽然为变量分配引用要快的多，拷贝也相当的廉价，拷贝操作时间复杂度O(n),因为它们使用基于数据大小的固定数量的引用计数操作,在稍后的教程中你将看到在Swift中一些巧妙的方法对这些拷贝操作进行优化处理。</p>
+<h1 id="易变性"><a href="#易变性" class="headerlink" title="易变性"></a>易变性</h1><p>var 和 let 定义对引用类型与值类型有功能上有差异，注意你定义的dog和puppy是用let定义的常量。然后你还是能够修改wasFed属性的值，为什么可以呢？</p>
+<p>对于引用类型，let 意味着引用必须要保持不变，换句话说就是你不能改变引用实例，但你能修改实例本身。</p>
+<p>对于值类型，let 意味着着实例也必须保持不变，不论属性是被声明为let或var都不能被修改。</p>
+<p>这样值类型就变得更容易控制。要实现引用类型实现相同的不变性和可变性行为，您需要实现不可变和可变的类变体，例如NSString和NSMutableString。</p>
+<h1 id="Swift喜欢什么类型"><a href="#Swift喜欢什么类型" class="headerlink" title="Swift喜欢什么类型?"></a>Swift喜欢什么类型?</h1><p>你可能会感到惊讶，Swift标准库几乎只是用值类型，通过Swift标准库快速搜索Swift 1.2,2.0和3.0中的枚举，结构和类的公共实例的结果显示了值类型方向的偏差：</p>
+<p>Swift 1.2:</p>
+<ul>
+<li>struct: 81</li>
+<li>enum: 8</li>
+<li>class: 3</li>
+</ul>
+<p>Swift 2.0:</p>
+<ul>
+<li>struct: 87</li>
+<li>enum: 8</li>
+<li>class: 4</li>
+</ul>
+<p>Swift 3.0:</p>
+<ul>
+<li>struct: 124</li>
+<li>enum: 19</li>
+<li>class: 3</li>
+</ul>
+<p>这些包括的类型像String，Array和Dictionary，都是用struct来实现的。</p>
+<h1 id="如何用何时用"><a href="#如何用何时用" class="headerlink" title="如何用何时用"></a>如何用何时用</h1><p>现在你知道了两者的差异，什么时候应该选择另一个呢？</p>
+<p>有一种情况让你别无选择，很多Cocoa接口都是NSObject的子类，这样就迫使你只能使用类。除此之外，您可以在如何选择的情况下使用Apple的Swift博客中的案例？ 决定是使用struct或enum值类型还是类引用类型。 您将在以下部分中仔细研究这些案例。</p>
+<h2 id="何时用值类型"><a href="#何时用值类型" class="headerlink" title="何时用值类型"></a>何时用值类型</h2><p>这里有三种情形使用值类型是最佳之选</p>
+<p><strong>在比较实例数据==意义的时候用值类型</strong></p>
+<p>我知道你在想什么。当然，你想每个对象去被比较，对吗？当是，你需要考虑这些数据是否能被比较。思考下面Point的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span>: <span class="title">CustomStringConvertible</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x: <span class="type">Float</span></span><br><span class="line">  <span class="keyword">var</span> y: <span class="type">Float</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"&#123;x: \(x), y: \(y)&#125;"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是否意味着具有完全相同的x和y成员的两个变量是相等的？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> point1 = <span class="type">Point</span>(x: <span class="number">2</span>, y: <span class="number">3</span>)</span><br><span class="line"><span class="keyword">let</span> point2 = <span class="type">Point</span>(x: <span class="number">2</span>, y: <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>没错，很明显你应该认为两个Point有相同的内部值他们就是相等的。具体存储在内存哪里无关紧要，你关心的是他们的值。</p>
+<p>确保你的Point能够被比较，你需要去遵循Equatable协议，这是所有值类型的良好实践。这个协议定义了一个必须实现方法为了比较两个对象实例。</p>
+<p>这意味着==操作必须具有以下特性：</p>
+<ul>
+<li><strong>反射的</strong>：x == x is true</li>
+<li><strong>对称的</strong>：if x == y then y == x</li>
+<li><strong>可传递的</strong>：if x == y and y == z then x == z</li>
+</ul>
+<p>这个例子为你的Point实现的了==操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Point</span>: <span class="title">Equatable</span> </span>&#123; &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> ==<span class="params">(lhs: Point, rhs: Point)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> lhs.x == rhs.x &amp;&amp; lhs.y == rhs.y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>当副本具有独立状态时候使用值类型</strong>。</p>
+<p>再稍微考虑下Point实例，思考下面两个Shape实例，他们两个中心点的初始值为相同的Points</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> center: <span class="type">Point</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> initialPoint = <span class="type">Point</span>(x: <span class="number">0</span>, y: <span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> circle = <span class="type">Shape</span>(center: initialPoint)</span><br><span class="line"><span class="keyword">var</span> square = <span class="type">Shape</span>(center: initialPoint)</span><br></pre></td></tr></table></figure>
+<p>如果你修改shapes其中之一中心点的值会发生什么呢？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">square.center.x = <span class="number">5</span>   <span class="comment">// &#123;x: 5.0, y: 0.0&#125;</span></span><br><span class="line">circle.center         <span class="comment">// &#123;x: 0.0, y: 0.0&#125;</span></span><br></pre></td></tr></table></figure>
+<p>每个shape都拥有自己的Point副本，所以你能够独立于其他的shape保持自身状态。你能够想象所有的shape都共享同一个中心点Point副本吗？</p>
+<p><strong>当你想创建一个共享，可变状态时候使用引用类型</strong></p>
+<p>有时候你想存储一块数据作为单例可以被多人使用和修改。</p>
 
       
     </div>
@@ -398,16 +512,6 @@
           
 
   
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
-  
 
 
 
@@ -464,6 +568,15 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
 
@@ -494,10 +607,10 @@
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
               <div class="links-of-blogroll-title">
                 <i class="fa  fa-fw fa-link"></i>
-                Links
+                友情链接
               </div>
               <ul class="links-of-blogroll-list">
                 
@@ -536,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#入门"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用类型与值类型"><span class="nav-number">2.</span> <span class="nav-text">引用类型与值类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用类型"><span class="nav-number">3.</span> <span class="nav-text">引用类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#易变性"><span class="nav-number">4.</span> <span class="nav-text">易变性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift喜欢什么类型"><span class="nav-number">5.</span> <span class="nav-text">Swift喜欢什么类型?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何用何时用"><span class="nav-number">6.</span> <span class="nav-text">如何用何时用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#何时用值类型"><span class="nav-number">6.1.</span> <span class="nav-text">何时用值类型</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -621,10 +734,9 @@
   
 
 
+  
 
 
-  
-  
 
 
 
@@ -666,12 +778,7 @@
 
   
   
-    <script type="text/javascript" src="/lib/three/three.min.js"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
@@ -712,26 +819,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://jesse.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2019/02/11/hello-world/';
-          this.page.identifier = '2019/02/11/hello-world/';
-          this.page.title = 'Hello World';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://jesse.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
 
 
 
@@ -744,6 +831,10 @@
   
 
 
+
+
+
+  
 
 
 
