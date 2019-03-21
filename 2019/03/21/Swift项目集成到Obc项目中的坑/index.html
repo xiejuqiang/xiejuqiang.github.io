@@ -79,16 +79,19 @@
 
 
 
-<meta name="description" content="love &amp; peace">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jesse&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="背景环境：最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。 第一步Pod库去重集成首先就是要修改podfile文件，为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift项目集成到Obc项目中的坑">
+<meta property="og:url" content="http://yoursite.com/2019/03/21/Swift项目集成到Obc项目中的坑/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="love &amp; peace">
+<meta property="og:description" content="背景环境：最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。 第一步Pod库去重集成首先就是要修改podfile文件，为">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553170539413&di=26fa8fcdaa3179d396c866bc1cb3d4e2&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg">
+<meta property="og:updated_time" content="2019-03-21T09:28:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jesse&#39;s Blog">
-<meta name="twitter:description" content="love &amp; peace">
+<meta name="twitter:title" content="Swift项目集成到Obc项目中的坑">
+<meta name="twitter:description" content="背景环境：最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。 第一步Pod库去重集成首先就是要修改podfile文件，为">
+<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553170539413&di=26fa8fcdaa3179d396c866bc1cb3d4e2&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg">
 
 
 
@@ -118,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/21/Swift项目集成到Obc项目中的坑/">
 
 
 
 
 
-  <title>Jesse's Blog</title>
+  <title>Swift项目集成到Obc项目中的坑 | Jesse's Blog</title>
   
 
 
@@ -143,8 +146,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -237,9 +239,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -269,9 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/21/Swift项目集成到Obc项目中的坑/" itemprop="url">Swift项目集成到Obc项目中的坑</a></h1>
+          <h1 class="post-title" itemprop="name headline">Swift项目集成到Obc项目中的坑</h1>
         
 
         <div class="post-meta">
@@ -343,9 +343,7 @@
       
 
       
-        
-          
-            <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1553170539413&amp;di=26fa8fcdaa3179d396c866bc1cb3d4e2&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg" alt="logo"></p>
+        <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1553170539413&amp;di=26fa8fcdaa3179d396c866bc1cb3d4e2&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg" alt="logo"></p>
 <h2 id="背景环境："><a href="#背景环境：" class="headerlink" title="背景环境："></a>背景环境：</h2><p>最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。<br>先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。</p>
 <h2 id="第一步Pod库去重集成"><a href="#第一步Pod库去重集成" class="headerlink" title="第一步Pod库去重集成"></a>第一步Pod库去重集成</h2><p>首先就是要修改podfile文件，为了兼容Swift 要添加 </p>
 <blockquote>
@@ -378,8 +376,6 @@
 <p>3.swift中的一些类型是OC没有的，或者类型名字差不多但是类型完全不同 例如： swift中的Int定义成可选类型的时候，这时候OC是调不了swift的Int类型，解决方式，定义普通Int型</p>
 </blockquote>
 
-          
-        
       
     </div>
     
@@ -389,6 +385,30 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="Jesse 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
@@ -396,169 +416,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/11/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jesse">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jesse's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/11/hello-world/" itemprop="url">Swift中的引用与值类型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-11T15:23:43+08:00">
-                2019-02-11
-              </time>
+              <a href="/2019/02/11/hello-world/" rel="next" title="Swift中的引用与值类型">
+                <i class="fa fa-chevron-left"></i> Swift中的引用与值类型
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/翻译/" itemprop="url" rel="index">
-                    <span itemprop="name">翻译</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p><a href="https://www.raywenderlich.com/9481-reference-vs-value-types-in-swift" target="_blank" rel="noopener">原文</a></p>
-<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png" alt="mylogo"></p>
-<p>通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。</p>
-<p>如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 <strong>值类型</strong> 的偏爱要超过 <strong>引用类型</strong>。</p>
-<p>在本教程中，您将学习到：</p>
-<ul>
-<li>值与引用类型的主要概念</li>
-<li>两者之间的差异</li>
-<li>如何选择使用哪个类型</li>
-</ul>
-<p>当您了解每种类型的主要概念时，您将解决现实中的问题。此外，您将学习更多高级的概念并发现两者微妙但重要的观点。</p>
-<p>不论您是来自Objective-c背景，还是您对Swift更精通，您一定会学到一些关于Swift输入输出的细节。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/11/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -568,10 +447,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -579,6 +459,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -599,8 +483,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -695,6 +588,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景环境："><span class="nav-number">1.</span> <span class="nav-text">背景环境：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步Pod库去重集成"><span class="nav-number">2.</span> <span class="nav-text">第一步Pod库去重集成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q"><span class="nav-number">2.0.1.</span> <span class="nav-text">Q:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A"><span class="nav-number">2.0.2.</span> <span class="nav-text">A:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">Q:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-1"><span class="nav-number">2.0.4.</span> <span class="nav-text">A:</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容Swift的工程配置设置"><span class="nav-number">3.</span> <span class="nav-text">兼容Swift的工程配置设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-OC调用Swift中的Class类这里"><span class="nav-number">3.1.</span> <span class="nav-text">一. OC调用Swift中的Class类这里</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -842,6 +751,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
