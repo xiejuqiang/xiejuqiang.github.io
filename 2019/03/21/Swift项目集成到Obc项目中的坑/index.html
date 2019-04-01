@@ -87,7 +87,7 @@
 <meta property="og:description" content="背景环境：最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。 第一步Pod库去重集成首先就是要修改podfile文件，为">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553170539413&di=26fa8fcdaa3179d396c866bc1cb3d4e2&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg">
-<meta property="og:updated_time" content="2019-03-21T09:28:33.000Z">
+<meta property="og:updated_time" content="2019-04-01T08:51:05.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift项目集成到Obc项目中的坑">
 <meta name="twitter:description" content="背景环境：最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。 第一步Pod库去重集成首先就是要修改podfile文件，为">
@@ -349,6 +349,7 @@
 <blockquote>
 <p>use_framework</p>
 </blockquote>
+<a id="more"></a>
 <h4 id="Q"><a href="#Q" class="headerlink" title="Q:"></a>Q:</h4><p>添加后执行pod install 发现提示Unable to determine Swift version for the following pods:错误</p>
 <h4 id="A"><a href="#A" class="headerlink" title="A:"></a>A:</h4><p>点buildSettings中的+号，添加SWIFT_VERSION，指定版本号4.2(根据你最新的Swift版本添加),再执行pod install解决问题。</p>
 <h4 id="Q-1"><a href="#Q-1" class="headerlink" title="Q:"></a>Q:</h4><p>iOS Undefined symbols for architecture arm64解决办法</p>
