@@ -252,6 +252,157 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/NetworkFamework/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jesse">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/31/NetworkFamework/" itemprop="url">iOS 网络框架：如何监测网络状态变化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T15:41:39+08:00">
+                2019-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>原文：<a href="https://www.appcoda.com/network-framework/" target="_blank" rel="noopener">https://www.appcoda.com/network-framework/</a></p>
+<p>翻译：by jesse</p>
+<hr>
+<p>大家好，欢迎观临！所有与服务器交换数据的应用始终必须了解的一件事情：他们是否连上Intenet。离线时，通常需要改变用户体验并更新用户界面，来反映应用程序无法执行基于网络的操作。此外，即使应用程序连接到Internet，了解连接类型（如Wifi或者蜂窝网络）也是非常的有帮助。没有人愿意在不知道的情况下应用程通过用蜂窝网络去拉取大量的数据，因为这会导致用户移动数据计划的额外成本。用户应该能够根据自己的意愿开启或者关闭的功能。</p>
+<p>值得庆幸的是，获得所需信息已确定以上内容已经变得非常的简单，因为Apple在iOS 12 中提供了Network 框架。有了它，获取网络状态和收到变更的通知是一个标准和简单的过程，我们将在今天这篇文章中看到详细信息。在iOS 12 之前，要获取必要的网络信息并监听它的变化是要基于SCNetworkReachability API，是一件繁琐的任务，更像是C语言的解决方案。多年来，一些自定义实现使得使用SCNetworkReachability变的更容易，但是随着Network框架推出将近一年，它将很快成为历史。</p>
+<p>在这篇文章中，我们不仅能看到Network框架的细节和如何使用它去监测网络状态的变化，而且在接下来的部分我们还将通过基于我们将要执行的实现创建小型的自定义框架作为一个可以复用的组件。锦上添花我们将要把自定义框架制作为cocoaPods分发并展示它所需要的所有集成步骤，感兴趣吗？</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/31/NetworkFamework/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/What-s-New-in-Swift-5/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -745,7 +896,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

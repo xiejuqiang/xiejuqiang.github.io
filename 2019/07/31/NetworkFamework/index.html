@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原文：https://www.appcoda.com/network-framework/ 翻译：by jesse  大家好，欢迎观临！所有与服务器交换数据的应用始终必须了解的一件事情：他们是否连上Intenet。离线时，通常需要改变用户体验并更新用户界面，来反映应用程序无法执行基于网络的操作。此外，即使应用程序连接到Internet，了解连接类型（如Wifi或者蜂窝网络）也是非常的有帮助。没有人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 网络框架：如何监测网络状态变化">
+<meta property="og:url" content="http://yoursite.com/2019/07/31/NetworkFamework/index.html">
+<meta property="og:site_name" content="Jesse&#39;s Blog">
+<meta property="og:description" content="原文：https://www.appcoda.com/network-framework/ 翻译：by jesse  大家好，欢迎观临！所有与服务器交换数据的应用始终必须了解的一件事情：他们是否连上Intenet。离线时，通常需要改变用户体验并更新用户界面，来反映应用程序无法执行基于网络的操作。此外，即使应用程序连接到Internet，了解连接类型（如Wifi或者蜂窝网络）也是非常的有帮助。没有人">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.appcoda.com/wp-content/uploads/2019/07/t66_1_first_sample.png">
+<meta property="og:image" content="https://www.appcoda.com/wp-content/uploads/2019/07/t66_2_sample.gif">
+<meta property="og:updated_time" content="2019-07-31T07:41:40.496Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 网络框架：如何监测网络状态变化">
+<meta name="twitter:description" content="原文：https://www.appcoda.com/network-framework/ 翻译：by jesse  大家好，欢迎观临！所有与服务器交换数据的应用始终必须了解的一件事情：他们是否连上Intenet。离线时，通常需要改变用户体验并更新用户界面，来反映应用程序无法执行基于网络的操作。此外，即使应用程序连接到Internet，了解连接类型（如Wifi或者蜂窝网络）也是非常的有帮助。没有人">
+<meta name="twitter:image" content="https://www.appcoda.com/wp-content/uploads/2019/07/t66_1_first_sample.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/31/NetworkFamework/">
+
+
+
+
+
+  <title>iOS 网络框架：如何监测网络状态变化 | Jesse's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jesse's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">i am iOSer</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/NetworkFamework/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jesse">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS 网络框架：如何监测网络状态变化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T15:41:39+08:00">
+                2019-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原文：<a href="https://www.appcoda.com/network-framework/" target="_blank" rel="noopener">https://www.appcoda.com/network-framework/</a></p>
+<p>翻译：by jesse</p>
+<hr>
+<p>大家好，欢迎观临！所有与服务器交换数据的应用始终必须了解的一件事情：他们是否连上Intenet。离线时，通常需要改变用户体验并更新用户界面，来反映应用程序无法执行基于网络的操作。此外，即使应用程序连接到Internet，了解连接类型（如Wifi或者蜂窝网络）也是非常的有帮助。没有人愿意在不知道的情况下应用程通过用蜂窝网络去拉取大量的数据，因为这会导致用户移动数据计划的额外成本。用户应该能够根据自己的意愿开启或者关闭的功能。</p>
+<p>值得庆幸的是，获得所需信息已确定以上内容已经变得非常的简单，因为Apple在iOS 12 中提供了Network 框架。有了它，获取网络状态和收到变更的通知是一个标准和简单的过程，我们将在今天这篇文章中看到详细信息。在iOS 12 之前，要获取必要的网络信息并监听它的变化是要基于SCNetworkReachability API，是一件繁琐的任务，更像是C语言的解决方案。多年来，一些自定义实现使得使用SCNetworkReachability变的更容易，但是随着Network框架推出将近一年，它将很快成为历史。</p>
+<p>在这篇文章中，我们不仅能看到Network框架的细节和如何使用它去监测网络状态的变化，而且在接下来的部分我们还将通过基于我们将要执行的实现创建小型的自定义框架作为一个可以复用的组件。锦上添花我们将要把自定义框架制作为cocoaPods分发并展示它所需要的所有集成步骤，感兴趣吗？</p>
+<a id="more"></a>
+<h2 id="示例项目概述"><a href="#示例项目概述" class="headerlink" title="示例项目概述"></a>示例项目概述</h2><p>今天我们将运行一个简单的项目就是在表示图里展示网络相关信息。具体地说，应用程序将显示设备是否连接上任何的网络接口（Wi-Fi，蜂窝，等），接口类型是什么，所有可获取的接口类型，考虑是否使用当前接口作为昂贵的操作，我们将在接下来讨论更多关于所以这些事情。</p>
+<p><img src="https://www.appcoda.com/wp-content/uploads/2019/07/t66_1_first_sample.png" alt="png"></p>
+<p>以上所述都是我们预先工作的结果，接下来我们将实现一个自定义的类并命名为NetStatus，在这个类里我们利用iOS SDK中的etwork框架，创建一个自定义的，容易使用的API，可以从那里集成到任意应用程序中去。我们使用Network框架并不需要做太多的事情，所以我们实现的任务将很快可以完成。这是一个好消息，因为我们将有机会基于NetStatus类创建一个小型自定义框架，以便我们可以在各种iOS项目中轻松使用它。</p>
+<p>这里有一个<a href="https://github.com/appcoda/NetworkStatus/raw/master/NetStatusStarter.zip" target="_blank" rel="noopener">启动项目</a>可以让你下载,初步过工作已经完成。在文章中某个地方将要求你保留项目的副本，因为我们将对项目进行重大的修改。而且你将会最终得到两个项目的变体：第一个将包含演示应用程序和NetStatus类作为一个项目，第二个将包含自定义框架和演示应用程序作为不同的项目，框架将使用本地pod集成到演示应用程序中。</p>
+<p>因此，享受你的阅读并了解Network框架的基本使用，学习如何使得自己的开源Swift框架可以作为cocoaPods进行分发。</p>
+<h2 id="创建一个单例类"><a href="#创建一个单例类" class="headerlink" title="创建一个单例类"></a>创建一个单例类</h2><p>我们将从直接实现一个自定义类开始。通过这个类的方法和属性我们将创建和提供一个可复用的API接口使得Network框架使用起来更加容易。</p>
+<p>我们的工作将在NetStatus.swift文件中进行，你将在启动项目中找到它，它当前是空的。我们将使用和文件名相同的类名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetStatus</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在继续之前，我们要先引入Network框架才能够使用它的API接口：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Network</span><br></pre></td></tr></table></figure>
+<p><code>NetStatus</code>是一个单例类，无需在需要使用它的时候创建实例。依据单例模式有两个要求：第一个，我们必须在类里中初始化一个<em>static</em>类型的共享实例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">let</span> shared = <span class="type">NetStatus</span>()</span><br></pre></td></tr></table></figure>
+<p>第二步，我们必须创建一个私有的初始化方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">init</span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很好，目前为止类里的代码如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetStatus</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> shared = <span class="type">NetStatus</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们将在此类中定义的任何属性和方法将使用项目周围任何位置的共享实例（<code>例如NetStatus.shared.XXX</code>）进行访问。</p>
+<p>Network框架的确提供了更简单的监听网络状态变化的方法通过调用<code>NWPathMonitor</code>的类。我们来声明一个这个类型的属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> monitor : <span class="type">NWPathMonitor?</span></span><br></pre></td></tr></table></figure>
+<p>这个属性可能是最重要的属性，因为几乎所有关于网络框架的内容都将通过它完成。</p>
+<p>另外，我们要声明一个标识来标示这个类是否正在监听网络状态变化：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isMonitoring = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>很显然初始值我们设置为false，因为还没进行监控。</p>
+<p>让我们声明几个处理回调的闭包，他们将在如下情况被调用：</p>
+<ul>
+<li>类开始监听网络变化。</li>
+<li>类停止监听网络变化。</li>
+<li>发生网络状态变化。</li>
+</ul>
+<p>代码如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> didStarMonitoringHandler: (() -&gt; <span class="type">Void</span>)?</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> didStopMonitoringHandler: (() -&gt; <span class="type">Void</span>)?</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> netStatusChangeHandler: (() -&gt; <span class="type">Void</span>)?</span><br></pre></td></tr></table></figure>
+<p>其他任何实体类使用<code>NetStatus</code>类实现以上闭包回调将会收到网络状态变化，监听网络开始和结束的通知。</p>
+<p><em>注：我们也能够使用代理模式或者是用<code>NotificationCenter</code>的通知模式来替代闭包模式进行实体类和    <code>NetStatus</code>类间的通信。然而，闭包是最快，最简单，最直接的信息发送方式。</em></p>
+<h2 id="开始监听网络状态改变"><a href="#开始监听网络状态改变" class="headerlink" title="开始监听网络状态改变"></a>开始监听网络状态改变</h2><p>为了从Network框架中接收网络状态变化，我们必须要监听他们，为了达到监听的目的我们在类里定义第一个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">startMonitoring</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先我们要做一个检查，通过查看<code>isMonitoring</code>属性的值来确定是否要开启监听。只有当没有正在监听存在我们才继续执行：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">guard</span> !isMonitoring <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>我们现在初始化 <code>monitor</code>属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monitor = <span class="type">NWPathMonitor</span>()</span><br></pre></td></tr></table></figure>
+<p>但是，这还不足以触发实际的监控过程。 我们必须调用一个名为<code>start（queue :)</code>的方法，并将调度队列作为参数传递，在该参数中将执行监视。 重点要理解观察网络变化必须在后台线程上运行，而不是在主线程上运行。 那么，让我们创建一个调度队列，并调用该方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> queue = <span class="type">DispathchQueue</span>(label: <span class="string">"NetStatus_Monitor"</span>)</span><br><span class="line">monitor?.start(queue: queue)</span><br></pre></td></tr></table></figure>
+<p>接下来使<code>NetStatus</code>能够通知其调用者，当有任何的网络状态改变，如从Wifi网络切换到蜂窝网络，或者是完全断开网络。这是通过<code>pathUpdateHandler</code>属性完成的，它是一个闭包，返回一个<code>NWPath</code>对象，有关的接口更新信息，设备是否连接等等。不过这里我们并不直接使用它，而是调用之前已经声明好的<code>netStatusChangeHandler</code>闭包来替代：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">monitor?.pathUpdateHandler = &#123; <span class="number">_</span> <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">self</span>.netStatusChangeHandler?()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们需要更新<code>isMonitoring</code>属性标识，并且调用<code>didStartMonitoringHandler</code>闭包：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">isMonitoring = <span class="literal">true</span></span><br><span class="line">didStartMonitoringHandler?()</span><br></pre></td></tr></table></figure>
+<p><code>startMonitoring()</code>方法现在已经准备就绪：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">startMonitoring</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">guard</span> !isMonitoring <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">	</span><br><span class="line">    monitor = <span class="type">NWPathMonitor</span>()</span><br><span class="line">    <span class="keyword">let</span> queue = <span class="type">DispathchQueue</span>(label: <span class="string">"NetStatus_Monitor"</span>)</span><br><span class="line">    monitor?.start(queue: queue)</span><br><span class="line">    </span><br><span class="line">    monitor?.pathUpdateHandler = &#123; <span class="number">_</span> <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">self</span>.netStatusChangeHandler?()</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">    isMonitoring = <span class="literal">true</span></span><br><span class="line">    didStartMonitoringHandler?()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="停止监测"><a href="#停止监测" class="headerlink" title="停止监测"></a>停止监测</h2><p>并非应用程序所有模块都需要进行监测网络状态变化，所以关闭监听是非常重要的。当不需要网络监测时候停止网络监测能更好的回收资源。</p>
+<p>让我们定义一个新的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">stopMonitoring</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先我们要检查这个类当前是否正处于监听状态，并且<code>monitor</code>属性是否已经进行了初始化：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">guard</span> isMonitoring, <span class="keyword">let</span> monitor = monitor <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>要停止监测只需要调用<code>cancel()</code>方法，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monitor.cancel()</span><br></pre></td></tr></table></figure>
+<p>然后更新我们自定义的属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.monitor = <span class="literal">nil</span></span><br><span class="line">isMonitoring = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>我们要记得去调用<code>didStopMonitoringHandler</code>闭包来通知那些调用这个类的任何一个实体对象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">didStopMonitoringHandler?()</span><br></pre></td></tr></table></figure>
+<p>这边就是<code>stopMonitoring()</code>方法的具体内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">stopMonitoring</span><span class="params">()</span></span> &#123;</span><br><span class="line">     <span class="keyword">guard</span> isMonitoring, <span class="keyword">let</span> monitor = monitor <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">     monitor.cancel()</span><br><span class="line">     <span class="keyword">self</span>.monitor = <span class="literal">nil</span></span><br><span class="line">     isMonitoring = <span class="literal">false</span></span><br><span class="line">     didStopMonitoringHandler?()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当你想要停止网络监测时候你调用以上的内容例如：<code>NetStatus.shared.stopMonitoring()</code>。然而如果不明确该在哪里调用会发生什么捏？</p>
+<p>是的，在<code>init()</code>方法之后实现<code>deinit</code>方法，若监测尚未停止则在里面调用<code>stopMonitoring()</code>方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">deinit</span> &#123;</span><br><span class="line"></span><br><span class="line">stopMonitoring()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="提供网络状态数据"><a href="#提供网络状态数据" class="headerlink" title="提供网络状态数据"></a>提供网络状态数据</h2><p>能够开启和关闭监测网络状态只完成了一半的工作。另外一半是应用程序通常需要了解的重要的数据。通过我们的课程我们将轻松的获得和了解这些内容：</p>
+<ul>
+<li>应用程序是否连接上了接口（wifi，蜂窝网，等）。</li>
+<li>当前连接的接口类型是什么。</li>
+<li>应用程序在任意给定时刻可调用接口。</li>
+<li>是否使用特定接口类型被认为是昂贵的操作。</li>
+</ul>
+<p>我们将通过只读属性实现以上内容。</p>
+<h2 id="确定设备是否连接"><a href="#确定设备是否连接" class="headerlink" title="确定设备是否连接"></a>确定设备是否连接</h2><p>我们将开始通过创建一个布尔属性来标识设备是否连接上接口：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isConnected: <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> monitor = monitor <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">false</span> &#125;</span><br><span class="line">    <span class="keyword">return</span> monitor.currentPath.status == .satisfied</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果 <code>monitor</code>属性为空，那么当前并未在监测网络状态变化，所以我们仅仅返回false。当<code>monitor</code>为空时是不能够确定当前设备是否连接接口。</p>
+<p>相反情况下，我们检查monitor对象当前网络路径（<code>currentPath</code>属性）的<code>status</code>属性的值，如果该值等于<code>satisfied</code>则设备连接上了接口。了解更多关于<code>status</code><a href="https://developer.apple.com/documentation/network/nwpath/2998725-status" target="_blank" rel="noopener">属性</a>和它<a href="https://developer.apple.com/documentation/network/nwpath/status" target="_blank" rel="noopener">可能的值</a>。当网络状态发生变化时候会自动更新<code>currentPath</code>属性，所以每次访问都会返回实际的数据。</p>
+<h2 id="获取当前接口类型"><a href="#获取当前接口类型" class="headerlink" title="获取当前接口类型"></a>获取当前接口类型</h2><p>除了了解设备是否连接到网络，了解它连接到接口类型也是很有帮助的。使<code>NetStatus</code>类能够确定是否连接上wifi网络，蜂窝网，或是用有线连接（以太网用于桌面macOS系统的应用程序）等等，我们应该提供这些极为有用和必需的功能组成。</p>
+<p>和之前一样，这里提供了另一个只读属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> interfaceType: <span class="type">NWInterface</span>.<span class="type">InterfaceType?</span> &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> monitor = monitor <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span>&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> monitor.currentPath.availableInterfaces.<span class="built_in">filter</span>&#123;</span><br><span class="line">        monitor.currentPath.usesInterfaceType($<span class="number">0</span>.type)</span><br><span class="line">    &#125;.first?.type</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次强调，只有当<code>monitor</code>属性不为空的时候才能继续执行是很重要的。要获取当前路径支持所有可用的接口，<code>currentPath</code>为我们提供<code>availableInterfaces</code> 属性，是个<code>NWInterface</code>对象集合。通过提供的<code>usesInterfaceType(_:)</code>方法更加容易的确定当前是否连接上指定的接口。上面<code>filter</code>方法返回一个新集合，该集合包含正在请求的被使用的接口。我们正在访问它的第一个（也是唯一的）元素，我们返回type属性，它是实际的接口类型（例如wifi）。 我建议你检查除类型之外的其他提供的属性，并使用它们与我们刚刚在这里做的类似。</p>
+<h2 id="获取可使用的接口类型"><a href="#获取可使用的接口类型" class="headerlink" title="获取可使用的接口类型"></a>获取可使用的接口类型</h2><p>在上面我们使用<code>availableInterfaces</code>属性来获取当前网络路径的所有可用接口。 此集合中的接口类型可能对将使用<code>NetStatus</code>类的其他实体有用，那么为什么不使它也可用呢？</p>
+<p>根据相同的模式，我们再写一个属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> availableInterfacesTypes: [<span class="type">NWInterface</span>.<span class="type">InterfaceType</span>]? &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> monitor = monitor <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span>&#125;</span><br><span class="line">    <span class="keyword">return</span> monitor.currentPath.availableInterfaces.<span class="built_in">map</span> &#123; $<span class="number">0</span>.type &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Swift中的高阶函数（如<code>map</code>）（或我们之前使用的<code>filter</code>）在此类情况下显着减少了所需的代码。 第二行的作用是基于原始的<code>NWInterface</code>集合创建一个新的<code>NWInterface.InterfaceType</code>对象数组，并为我们提供我们正在寻找的可用接口类型。</p>
+<h2 id="检查昂贵的接口"><a href="#检查昂贵的接口" class="headerlink" title="检查昂贵的接口"></a>检查昂贵的接口</h2><p>根据苹果文档，某些接口使用是否为昂贵的。Network框架有个标识<code>isExpensive</code>属性使得判断更加方便。我们将创建一个相识的名字属性并返回原始<code>isExpensive</code>属性的值。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isExpensive: <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> monitor?.currentPath.isExpensive ?? <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意这里<code>monitor</code>属性为空的话，仅返回false。</p>
+<h2 id="查看Network框架的运行效果"><a href="#查看Network框架的运行效果" class="headerlink" title="查看Network框架的运行效果"></a>查看Network框架的运行效果</h2><p>我们已经完成主要的工作，是时候让<code>NetStatus</code>类执行并从Network框架中获得预期的数据。为了实现效果，我们切换到<em>ViewController.swift</em>文件，部分的实例代码和视图UI已经实现。它包含一个列表和一个开启和关闭的按钮（命名 <code>monitorButton</code>）。</p>
+<p>列表视图包含三个部分：</p>
+<pre><code>* 第一部分只包含一行，它标识连接的状态（设备是否连接接口）。
+* 第二部分罗列出所有可供设备连接的接口类型，另外，还将显示当前被使用的接口类型是哪个。
+* 第三部分也是最后一部分，显示当前连接的接口是否属于昂贵。
+</code></pre><p>在继续之前有一点要注意：我建议你在真机上运行实例程序而要用模拟去运行。在真实的环境工作下会有很大的差异，如你你连接网络是使用以太网模拟器运行的话很可能被误导。</p>
+<p>所以，我们继续之前的操作，找到<em>ViewController.swift</em>文件里数据源方法<code>tableView(_:numberOfRowsInSection:)</code>。这里没部分的行数必需要设置，当前第二部分返回的行数为0:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> section != <span class="number">1</span> ? <span class="number">1</span> : <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于我们没有使用<code>NetStatus</code>类实现是无法知道有多少个可供设备连接的接口，现在我们准备更新上面的代码返回可使用接口的数量如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> section != <span class="number">1</span> ? <span class="number">1</span> : <span class="type">NetStatus</span>.shared.availableInterfacesTypes?.<span class="built_in">count</span> ?? <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意如果某些原因导致<code>availableInterfacesTypes</code>为nil我们需要提供默认值，使用（??）合并操作，这种情况下不需要显示行数。</p>
+<p>让我前往数据源方法<code>tableView(_:cellForRowAt:)</code>.除了出列和返回单元格，这里不会发生其他任何事情。我们将通过添加代码做些修改，在合适的部分显示合适的数据。我们将用<code>indexPath.section</code>为条件声明一个<code>switch</code>条件语句开始。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> indexPath.section &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我已经说过第一部分我们将显示设备是否连接上接口，所以我们使用<code>NetStatus</code>类的<code>isConnected</code>属性。我们将用文字和图片来做到这一点：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">     cell.label?.text = <span class="type">NetStatus</span>.shared.isConnected ? <span class="string">"Connected"</span> : <span class="string">"Not Connected"</span></span><br><span class="line">     cell.indicationImageView.image = <span class="type">UIImage</span>(named: <span class="string">"checkmark"</span>) : <span class="type">UIImage</span>(named: <span class="string">"delete"</span>)</span><br></pre></td></tr></table></figure>
+<p>在第二部分我们将列出所有可用的接口类型，而且我们将标记当前连接的设备都接口类型。为了实现这个我们将使用<code>availableInterfacesTypes</code>和<code>interfaceType</code>两个属性来各自实现。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> interfaceType = <span class="type">NetStatus</span>.shared.availableInterfacesTypes?[indexPath.row] &#123;</span><br><span class="line">        cell.label?.text = <span class="string">"\(interfaceType)"</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> currentInterfaceType = <span class="type">NetStatus</span>.shared.interfaceType &#123;</span><br><span class="line">            cell.indicationImageView.image = (interfaceType == currentInterfaceType) ? <span class="type">UIImage</span>(named: <span class="string">"checkmark"</span>) : <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们想要表示当前连接的接口是否昂贵，所以最后一部分如下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cell.label?.text = <span class="type">NetStatus</span>.shared.isExpensive ? <span class="string">"Expensive"</span> : <span class="string">"Not Expensive"</span></span><br><span class="line">    cell.indicationImageView.image = <span class="type">NetStatus</span>.shared.isExpensive ? <span class="type">UIImage</span>(named: <span class="string">"warning"</span>) : <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+<p>我们还需要实现<code>default</code>条件情况：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">default</span>: ()</span><br></pre></td></tr></table></figure>
+<p>那么数据源方法<code>tableView(_:cellForRowAt:)</code>将变成这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> cell = tableView.dequeueReusableCell(withIdentifier: <span class="string">"infoCell"</span>, <span class="keyword">for</span>: indexPath) <span class="keyword">as</span>! <span class="type">InfoCell</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">switch</span> indexPath.section &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        cell.label?.text = <span class="type">NetStatus</span>.shared.isConnected ? <span class="string">"Connected"</span> : <span class="string">"Not Connected"</span></span><br><span class="line">        cell.indicationImageView.image = <span class="type">NetStatus</span>.shared.isConnected ? <span class="type">UIImage</span>(named: <span class="string">"checkmark"</span>) : <span class="type">UIImage</span>(named: <span class="string">"delete"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> interfaceType = <span class="type">NetStatus</span>.shared.availableInterfacesTypes?[indexPath.row] &#123;</span><br><span class="line">            cell.label?.text = <span class="string">"\(interfaceType)"</span></span><br><span class="line"> </span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> currentInterfaceType = <span class="type">NetStatus</span>.shared.interfaceType &#123;</span><br><span class="line">                cell.indicationImageView.image = (interfaceType == currentInterfaceType) ? <span class="type">UIImage</span>(named: <span class="string">"checkmark"</span>) : <span class="literal">nil</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        cell.label?.text = <span class="type">NetStatus</span>.shared.isExpensive ? <span class="string">"Expensive"</span> : <span class="string">"Not Expensive"</span></span><br><span class="line">        cell.indicationImageView.image = <span class="type">NetStatus</span>.shared.isExpensive ? <span class="type">UIImage</span>(named: <span class="string">"warning"</span>) : <span class="literal">nil</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">default</span>: ()</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> cell</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>列表的配置已经完成，但还有些内容需要添加。我们接下来通过 <code>toggleMonitoring(_:)</code>方法来开启或者关闭网络状态的监测。这很简单：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">toggleMonitoring</span><span class="params">(<span class="number">_</span> sender: <span class="keyword">Any</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> !<span class="type">NetStatus</span>.shared.isMonitoring &#123;</span><br><span class="line">        <span class="type">NetStatus</span>.shared.startMonitoring()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">NetStatus</span>.shared.stopMonitoring()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，我们在<code>ViewDidLoad()</code>方法中实现这个闭包，使得<code>ViewController</code>类能够接受到网络状态改变的通知。</p>
+<p>实例程序的需要，我敏只要执行当监测开始的时候去更新按钮的标题：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="type">NetStatus</span>.shared.didStartMonitoringHandler = &#123; [<span class="keyword">unowned</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">self</span>.monitorButton.setTitle(<span class="string">"Stop Monitoring"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们还将同样执行监测停止对监听，并且要刷新列表的标识：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line"> </span><br><span class="line">    <span class="type">NetStatus</span>.shared.didStopMonitoringHandler = &#123; [<span class="keyword">unowned</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">self</span>.monitorButton.setTitle(<span class="string">"Start Monitoring"</span>, <span class="keyword">for</span>: .normal)</span><br><span class="line">        <span class="keyword">self</span>.tableView.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当网络状态改变的时候也需要重新加载列表：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line"> </span><br><span class="line">    <span class="type">NetStatus</span>.shared.netStatusChangeHandler = &#123;</span><br><span class="line">        <span class="type">DispatchQueue</span>.main.async &#123; [<span class="keyword">unowned</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.tableView.reloadData()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>值得注意的是使用异步调度队列使加载列表必需在主线程中进行，因为在后台线程监听网络状态的改变，视图界面的更新不允许发生在后台线程。</p>
+<p>我们现在能够运行应用程序并看到网络状态改变时候属性的变化。从wifi切换到蜂窝网，再切回来，然后关闭网络，每次重新打开应用程序都能看到所有监听值的更新变化：</p>
+<p><img src="https://www.appcoda.com/wp-content/uploads/2019/07/t66_2_sample.gif" alt="pic"></p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>今天我们通过一些不同的步骤，我们吧注意力转到除了Xcode以外其他的东西上。关注Network框架的本身，处理和获取网络更新变得是个简单的任务，通过使用<code>NetStatus</code>类使我们实现起来更加的方便。</p>
+<p>为了使项目更加完善，我们将在下一篇文章中创建一个CocoaPod，这样我们就可以通过CocoaPods依赖管理器轻松集成和分发我们的框架，我们甚至可以创建一个GitHub存储库来托管它以进行远程访问。 我们会在细节到来时看到所有细节。 请继续关注我们即将推出的教程。</p>
+<p>我希望你享受到今天这篇教程多内容，让你有学到一些新的东西。下期再见 👋 !</p>
+<p>上面提到的实例，你可以在GitHub上<a href="https://github.com/appcoda/NetworkStatus" target="_blank" rel="noopener">下载</a>这些实例代码</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="Jesse 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/28/What-s-New-in-Swift-5/" rel="next" title="What's New in Swift 5">
+                <i class="fa fa-chevron-left"></i> What's New in Swift 5
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="Jesse">
+            
+              <p class="site-author-name" itemprop="name">Jesse</p>
+              <p class="site-description motion-element" itemprop="description">love & peace</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xiejuqiang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3162863135" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://onevcat.com/#blog" title="喵神" target="_blank">喵神</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.cnbang.net/" title="bang" target="_blank">bang</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://limboy.me/" title="limboy" target="_blank">limboy</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mrpeak.cn" title="Peak" target="_blank">Peak</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例项目概述"><span class="nav-number">1.</span> <span class="nav-text">示例项目概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个单例类"><span class="nav-number">2.</span> <span class="nav-text">创建一个单例类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始监听网络状态改变"><span class="nav-number">3.</span> <span class="nav-text">开始监听网络状态改变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停止监测"><span class="nav-number">4.</span> <span class="nav-text">停止监测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供网络状态数据"><span class="nav-number">5.</span> <span class="nav-text">提供网络状态数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#确定设备是否连接"><span class="nav-number">6.</span> <span class="nav-text">确定设备是否连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取当前接口类型"><span class="nav-number">7.</span> <span class="nav-text">获取当前接口类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取可使用的接口类型"><span class="nav-number">8.</span> <span class="nav-text">获取可使用的接口类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查昂贵的接口"><span class="nav-number">9.</span> <span class="nav-text">检查昂贵的接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看Network框架的运行效果"><span class="nav-number">10.</span> <span class="nav-text">查看Network框架的运行效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">11.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jesse</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

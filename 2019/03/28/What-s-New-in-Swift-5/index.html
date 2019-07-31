@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2018/05/swift.png">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2018/12/announcement.png">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2018/05/sun.png">
-<meta property="og:updated_time" content="2019-04-01T08:50:03.833Z">
+<meta property="og:updated_time" content="2019-04-02T03:02:58.238Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="What&#39;s New in Swift 5">
 <meta name="twitter:description" content="原文 好消息！Swift 5 最终正式版在Xcode 10.2 中可使用。这个版本带来稳定的ABI和对一些期待已久的特性的完善。 这个教程中，你将学到关于Swift 5重要的改变。Swift 5需要Xcode 10.2，所以在开始之前确定你已经安装了Xcode 10.2. 开始Swift 5 是源码兼容Swift 4.2，但不是二进制兼容Swift之前的版本。不过由于稳定的ABI在未来的版本中将">
@@ -387,9 +387,9 @@
 <p>这些代码如何工作的：</p>
 <ol>
 <li>声明versions 定义range 覆盖整个versions字符串</li>
-<li>定义正则表达式来匹配所有在versions中Swift较低的版本</li>
-<li>使用matches(in:options:range:)方法来匹配低版本</li>
-<li>使用ranges从versions中获取低版本</li>
+<li>定义正则表达式来匹配所有在versions中Swift次要版本</li>
+<li>使用matches(in:options:range:)方法来匹配次要版本</li>
+<li>使用ranges从versions中获取次要版本</li>
 </ol>
 <p>Swift 5 简化了原生字符串的正则表达式:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> regex = <span class="keyword">try</span>! <span class="type">NSRegularExpression</span>(pattern: #<span class="string">"\d\.\d"</span>#)</span><br></pre></td></tr></table></figure>
@@ -598,6 +598,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/07/31/NetworkFamework/" rel="prev" title="iOS 网络框架：如何监测网络状态变化">
+                iOS 网络框架：如何监测网络状态变化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -675,7 +679,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
