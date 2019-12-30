@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift中的引用与值类型">
+<meta property="og:url" content="http://yoursite.com/2019/02/11/hello-world/index.html">
+<meta property="og:site_name" content="Jesse&#39;s Blog">
+<meta property="og:description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/08/value-reference.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/08/value-value.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2018/12/swift_measure-320x320.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/NoCopyDebugger.png">
+<meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/CopyDebugger.png">
+<meta property="og:updated_time" content="2019-02-14T02:54:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift中的引用与值类型">
+<meta name="twitter:description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
+<meta name="twitter:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/11/hello-world/">
+
+
+
+
+
+  <title>Swift中的引用与值类型 | Jesse's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jesse's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">i am iOSer</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/11/hello-world/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jesse">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Swift中的引用与值类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-11T15:23:43+08:00">
+                2019-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/11/hello-world/" class="leancloud_visitors" data-flag-title="Swift中的引用与值类型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.raywenderlich.com/9481-reference-vs-value-types-in-swift" target="_blank" rel="noopener">原文</a></p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png" alt="mylogo"></p>
+<p>通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。</p>
+<p>如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 <strong>值类型</strong> 的偏爱要超过 <strong>引用类型</strong>。</p>
+<p>在本教程中，您将学习到：</p>
+<ul>
+<li>值与引用类型的主要概念</li>
+<li>两者之间的差异</li>
+<li>如何选择使用哪个类型</li>
+</ul>
+<p>当您了解每种类型的主要概念时，您将解决现实中的问题。此外，您将学习更多高级的概念并发现两者微妙但重要的观点。</p>
+<p>不论您是来自Objective-c背景，还是您对Swift更精通，您一定会学到一些关于Swift输入输出的细节。</p>
+<a id="more"></a>
+<h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>首先，新建一个playground，在Xcode选择File-&gt;New-&gt;Playground…并命名playground为ReferenceTypes。</p>
+<blockquote>
+<p>注：您可以选择任何平台，因为本教程是与平台无关的，只关注Swift语言方面。</p>
+</blockquote>
+<p>点击 <strong>下一步</strong>,选择一个方便的位置保存playground，点击 <strong>创建</strong>并打开它。</p>
+<h1 id="引用类型与值类型"><a href="#引用类型与值类型" class="headerlink" title="引用类型与值类型"></a>引用类型与值类型</h1><p>那么两者类型的核心区别是什么？简单一句话来概括就是引用类型共享同一个数据拷贝，而值类型保持其唯一的数据拷贝。</p>
+<p>Swift将引用类型表示为类，这和Objective-c类似，所有从NSObject继承的内容都存储为引用类型。</p>
+<p>在Swift中有许多值类型，例如结构体、枚举、元组。您可能不知道Objective-c也有用值类型，表示字面量的像NSInteger甚至C结构如CGPoint。</p>
+<p>为了更好的理解两者的差异，最好是先从认识Objective-c的引用类型开始。</p>
+<h1 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h1><p>引用类型是一个可以由多个变量传递并引用的共享实例。用一个例子能很好的说明这一点。</p>
+<p>添加下面这段代码到你的playground中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Reference Types:</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> wasFed = <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这个类表示表示🐶是否被喂养，添加下面这段代码来创建你的🐶的实例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</span><br></pre></td></tr></table></figure>
+<p>这是指向存储🐶的内存地址。添加如下代码去添加另外一个对象来持有相同🐶实例的引用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> puppy = dog</span><br></pre></td></tr></table></figure>
+<p>因为dog对象是一个内存地址的引用，puppy对象指向内存中相同的数据。通过设置变量<strong>wasFed</strong>值为true：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">puppy.wasFed = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>puppy 和 dog 两个对象指向同一个内存地址。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/08/value-reference.png" alt="address"></p>
+<p>因此你期望修改其中一个的值另一个值也会被更改。通过在playground中观察属性的值来检查判断是否正确：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dog.wasFed     <span class="comment">// true</span></span><br><span class="line">puppy.wasFed   <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>更改一个实例会影响另一个因为他们引用同一个对象，这正是你在Objective-c所期望的。</p>
+<p>#值类型</p>
+<p>值类型和引用类型完全的不同，您将使用一些简单的Swift源语言来探索它。</p>
+<p>将以下的Int变量和相应的操作添加到playground中去：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Value Types:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">42</span></span><br><span class="line"><span class="keyword">var</span> b = a</span><br><span class="line">b += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">a    <span class="comment">// 42</span></span><br><span class="line">b    <span class="comment">// 43</span></span><br></pre></td></tr></table></figure>
+<p>您觉得变量a和b相当吗？很显然a等于42，而b等于43。如果您将他们声明为引用类型的话，a和b都将等于43，因为他们指向相同的内存地址。</p>
+<p>对于任何其他值类型的也是如此。在你的playground中实现下面的Cat 结构体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Cat</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> wasFed = <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> cat = <span class="type">Cat</span>()</span><br><span class="line"><span class="keyword">var</span> kitty = cat</span><br><span class="line">kitty.wasFed = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">cat.wasFed        <span class="comment">// false</span></span><br><span class="line">kitty.wasFed      <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>这里展示了引用和值类型微妙但重要的差异：设置kitty的wasFed变量并没有影响到cat，kitty变量接受一个cat的值拷贝而不是引用。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/08/value-value.png" alt="cat"></p>
+<p>好像你的猫今晚要饿肚子了^_^</p>
+<p>虽然为变量分配引用要快的多，拷贝也相当的廉价，拷贝操作时间复杂度O(n),因为它们使用基于数据大小的固定数量的引用计数操作,在稍后的教程中你将看到在Swift中一些巧妙的方法对这些拷贝操作进行优化处理。</p>
+<h1 id="易变性"><a href="#易变性" class="headerlink" title="易变性"></a>易变性</h1><p>var 和 let 定义对引用类型与值类型有功能上有差异，注意你定义的dog和puppy是用let定义的常量。然后你还是能够修改wasFed属性的值，为什么可以呢？</p>
+<p>对于引用类型，let 意味着引用必须要保持不变，换句话说就是你不能改变引用实例，但你能修改实例本身。</p>
+<p>对于值类型，let 意味着着实例也必须保持不变，不论属性是被声明为let或var都不能被修改。</p>
+<p>这样值类型就变得更容易控制。要实现引用类型实现相同的不变性和可变性行为，您需要实现不可变和可变的类变体，例如NSString和NSMutableString。</p>
+<h1 id="Swift喜欢什么类型"><a href="#Swift喜欢什么类型" class="headerlink" title="Swift喜欢什么类型?"></a>Swift喜欢什么类型?</h1><p>你可能会感到惊讶，Swift标准库几乎只是用值类型，通过Swift标准库快速搜索Swift 1.2,2.0和3.0中的枚举，结构和类的公共实例的结果显示了值类型方向的偏差：</p>
+<p>Swift 1.2:</p>
+<ul>
+<li>struct: 81</li>
+<li>enum: 8</li>
+<li>class: 3</li>
+</ul>
+<p>Swift 2.0:</p>
+<ul>
+<li>struct: 87</li>
+<li>enum: 8</li>
+<li>class: 4</li>
+</ul>
+<p>Swift 3.0:</p>
+<ul>
+<li>struct: 124</li>
+<li>enum: 19</li>
+<li>class: 3</li>
+</ul>
+<p>这些包括的类型像String，Array和Dictionary，都是用struct来实现的。</p>
+<h1 id="如何用何时用"><a href="#如何用何时用" class="headerlink" title="如何用何时用"></a>如何用何时用</h1><p>现在你知道了两者的差异，什么时候应该选择另一个呢？</p>
+<p>有一种情况让你别无选择，很多Cocoa接口都是NSObject的子类，这样就迫使你只能使用类。除此之外，您可以在如何选择的情况下使用Apple的Swift博客中的案例？ 决定是使用struct或enum值类型还是类引用类型。 您将在以下部分中仔细研究这些案例。</p>
+<h2 id="何时用值类型"><a href="#何时用值类型" class="headerlink" title="何时用值类型"></a>何时用值类型</h2><p>这里有三种情形使用值类型是最佳之选</p>
+<p><strong>在比较实例数据==意义的时候用值类型</strong></p>
+<p>我知道你在想什么。当然，你想每个对象去被比较，对吗？当是，你需要考虑这些数据是否能被比较。思考下面Point的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span>: <span class="title">CustomStringConvertible</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> x: <span class="type">Float</span></span><br><span class="line">  <span class="keyword">var</span> y: <span class="type">Float</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"&#123;x: \(x), y: \(y)&#125;"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是否意味着具有完全相同的x和y成员的两个变量是相等的？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> point1 = <span class="type">Point</span>(x: <span class="number">2</span>, y: <span class="number">3</span>)</span><br><span class="line"><span class="keyword">let</span> point2 = <span class="type">Point</span>(x: <span class="number">2</span>, y: <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>没错，很明显你应该认为两个Point有相同的内部值他们就是相等的。具体存储在内存哪里无关紧要，你关心的是他们的值。</p>
+<p>确保你的Point能够被比较，你需要去遵循Equatable协议，这是所有值类型的良好实践。这个协议定义了一个必须实现方法为了比较两个对象实例。</p>
+<p>这意味着==操作必须具有以下特性：</p>
+<ul>
+<li><strong>反射的</strong>：x == x is true</li>
+<li><strong>对称的</strong>：if x == y then y == x</li>
+<li><strong>可传递的</strong>：if x == y and y == z then x == z</li>
+</ul>
+<p>这个例子为你的Point实现的了==操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Point</span>: <span class="title">Equatable</span> </span>&#123; &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> ==<span class="params">(lhs: Point, rhs: Point)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> lhs.x == rhs.x &amp;&amp; lhs.y == rhs.y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>当副本具有独立状态时候使用值类型</strong>。</p>
+<p>再稍微考虑下Point实例，思考下面两个Shape实例，他们两个中心点的初始值为相同的Points</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> center: <span class="type">Point</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> initialPoint = <span class="type">Point</span>(x: <span class="number">0</span>, y: <span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> circle = <span class="type">Shape</span>(center: initialPoint)</span><br><span class="line"><span class="keyword">var</span> square = <span class="type">Shape</span>(center: initialPoint)</span><br></pre></td></tr></table></figure>
+<p>如果你修改shapes其中之一中心点的值会发生什么呢？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">square.center.x = <span class="number">5</span>   <span class="comment">// &#123;x: 5.0, y: 0.0&#125;</span></span><br><span class="line">circle.center         <span class="comment">// &#123;x: 0.0, y: 0.0&#125;</span></span><br></pre></td></tr></table></figure>
+<p>每个shape都拥有自己的Point副本，所以你能够独立于其他的shape保持自身状态。你能够想象所有的shape都共享同一个中心点Point副本吗？</p>
+<p><strong>当你想创建一个共享，可变状态时候使用引用类型</strong></p>
+<p>有时候你想存储一块数据作为单例可以被多人使用和修改。</p>
+<p>具有共享可变状态的对象的常见示例是共享银行帐户。你可以实现一些基本的表示账户和个人（账户持有人），如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Account</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> balance = <span class="number">0.0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> account: <span class="type">Account</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(<span class="number">_</span> account: <span class="type">Account</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.account = account</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果任何联名账户持有人向账户添加资金，则与账户关联的所有借记卡应反映新的余额：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> account = <span class="type">Account</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person1 = <span class="type">Person</span>(account)</span><br><span class="line"><span class="keyword">let</span> person2 = <span class="type">Person</span>(account)</span><br><span class="line"></span><br><span class="line">person2.account.balance += <span class="number">100.0</span></span><br><span class="line"></span><br><span class="line">person1.account.balance    <span class="comment">// 100</span></span><br><span class="line">person2.account.balance    <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+<p>因为Account是一个类，每个Person都持有账号的引用，并且所有内容都保持同步。</p>
+<h2 id="还是无法决定？"><a href="#还是无法决定？" class="headerlink" title="还是无法决定？"></a>还是无法决定？</h2><p>如果你还是不确定哪种机制适用你的场景，默认使用值类型，你可以随时很轻易的迁移成类。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2018/12/swift_measure-320x320.png" alt="swiftlogo"></p>
+<p>虽然Swift几乎只使用值类型，但令人难以置信的是当在Objective-c中的情况确实截然相反的。</p>
+<p>作为新Swift范例下的编码架构师，您需要对如何使用数据进行一些初步规划。 您可以使用值类型或引用类型解决几乎任何情况。 但是，错误地使用它们可能会导致大量错误和令人困惑的代码。</p>
+<p>任何情况下，当新要求出现时候常识和自愿去改变你的架构师最好的方法。挑战自己去遵循Swift模型。您将能产出比你预期更漂亮的代码！</p>
+<h1 id="混合值类型和引用类型"><a href="#混合值类型和引用类型" class="headerlink" title="混合值类型和引用类型"></a>混合值类型和引用类型</h1><p>你通常会遇见这种情况，引用类型需要包含值类型反之亦然。这很容易使对象的预期语义复杂化。</p>
+<p>要查看其中一些复杂的情况，以下是每个方案的例子。</p>
+<h2 id="引用类型包含值类型属性"><a href="#引用类型包含值类型属性" class="headerlink" title="引用类型包含值类型属性"></a>引用类型包含值类型属性</h2><p>引用类型包含值类型是很常见的。举一个例子一个Person类有些身份事项，存储一个Address结构体等事项。</p>
+<p>来看看这个怎么样，将下面基本的addres实现替换你的playground中的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Address</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> streetAddress: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> city: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> state: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> postalCode: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，Address的所有属性来标识一个现实世界中建筑的唯一物理地址。所有属性都是String类型的值类型，为了简单起见将忽略验证逻辑。</p>
+<p>接下来，添加下面的代码到你playground的底部</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;          <span class="comment">// Reference type</span></span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span>      <span class="comment">// Value type</span></span><br><span class="line">  <span class="keyword">var</span> address: <span class="type">Address</span>  <span class="comment">// Value type</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(name: <span class="type">String</span>, address: <span class="type">Address</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.name = name</span><br><span class="line">    <span class="keyword">self</span>.address = address</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种情况下使用混合类型是十分有意思的，每个类实体有自己的值类型属性实体不被共享。这样就避免了不同人共享和意外的修改其他人的地址。</p>
+<p>为了验证此行为，添加如下代码到你的playground末尾：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">let</span> kingsLanding = <span class="type">Address</span>(</span><br><span class="line">  streetAddress: <span class="string">"1 King Way"</span>, </span><br><span class="line">  city: <span class="string">"Kings Landing"</span>, </span><br><span class="line">  state: <span class="string">"Westeros"</span>, </span><br><span class="line">  postalCode: <span class="string">"12345"</span>)</span><br><span class="line"><span class="keyword">let</span> madKing = <span class="type">Person</span>(name: <span class="string">"Aerys"</span>, address: kingsLanding)</span><br><span class="line"><span class="keyword">let</span> kingSlayer = <span class="type">Person</span>(name: <span class="string">"Jaime"</span>, address: kingsLanding)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line">kingSlayer.address.streetAddress = <span class="string">"1 King Way Apt. 1"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line">madKing.address.streetAddress  <span class="comment">// 1 King Way</span></span><br><span class="line">kingSlayer.address.streetAddress <span class="comment">// 1 King Way Apt. 1</span></span><br></pre></td></tr></table></figure>
+<p>这边是你添加的内容：</p>
+<ol>
+<li>首先，你创建两个来自相同Address实体的Person对象。</li>
+<li>下一步，你修改其中一个Person对象的的地址。</li>
+<li>最后，你验证两个地址是不同的。虽然每个对象创建使用的是相同的地址，修改其中一个并不会影响到另一个。</li>
+</ol>
+<p>接下来你将发现值类型包含引用类型会更复杂一些。</p>
+<h2 id="值类型包含引用类型属性"><a href="#值类型包含引用类型属性" class="headerlink" title="值类型包含引用类型属性"></a>值类型包含引用类型属性</h2><p>上一个实例如此简单，为什么反过来就变得更困难了呢？</p>
+<p>添加如下代码到你的playground中去验证值类型包含引用类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Bill</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> amount: <span class="type">Float</span></span><br><span class="line">  <span class="keyword">let</span> billedTo: <span class="type">Person</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个Bill备份是唯一的内容备份，但所有的Bill实体将共享这个billedTo的Person对象。这在保持对象的值语义上增加了很多的复杂性。对于实体来说如何比较两个Bill对象，是根据他值类型应该遵循Equatable协议？</p>
+<p>你能够试着添加如下代码（但不要加到你的playground中）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Bill</span>: <span class="title">Equatable</span> </span>&#123; &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> ==<span class="params">(lhs: Bill, rhs: Bill)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> lhs.amount == rhs.amount &amp;&amp; lhs.billedTo === rhs.billedTo</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 === 特性操作来检查两个对象是否拥有相同的引用，这意味着两个值类型共享数据，这正是遵循值语义时你不想要的。</p>
+<p>所以你改如何处理？</p>
+<h2 id="从混合类型中得到值语义"><a href="#从混合类型中得到值语义" class="headerlink" title="从混合类型中得到值语义"></a>从混合类型中得到值语义</h2><p>你出于某种原因创建了一个依赖共享实体的Bill结构体，这意味着不是完全独立的拷贝，这违背了值类型的主要目的。</p>
+<p>为了更好理解这个问题，添加下面代码到playground的底部：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">let</span> billPayer = <span class="type">Person</span>(name: <span class="string">"Robert"</span>, address: kingsLanding)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="keyword">let</span> bill = <span class="type">Bill</span>(amount: <span class="number">42.99</span>, billedTo: billPayer)</span><br><span class="line"><span class="keyword">let</span> bill2 = bill</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line">billPayer.name = <span class="string">"Bob"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Inspect values</span></span><br><span class="line">bill.billedTo.name    <span class="comment">// "Bob"</span></span><br><span class="line">bill2.billedTo.name   <span class="comment">// "Bob"</span></span><br></pre></td></tr></table></figure>
+<p>这边是你按照注释编号依次执行的：</p>
+<ol>
+<li>首先，创建了一个基于Address和名字的Person类。</li>
+<li>下一步你实例化了一个默认初始的Bill结构体并创建了它的一个副本</li>
+<li>最后，你改变了传递过去的Person对象，反过来同时也影响了所谓的唯一实体。</li>
+</ol>
+<p>哦不对，这不是你想要的。修改其中一个账单的用户另一个账单的用户也改变了。根据值语义，你期望一个账单属于Bob的而另一个属于Robert才对。</p>
+<p>这里，你可以创建Bill的唯一拷贝引用通过 init(amount:billedTo:). 因为Person不属于NSObject类他没有自己的方法，我们必须自己实现copy方法。</p>
+<h2 id="在初始化的时候拷贝引用"><a href="#在初始化的时候拷贝引用" class="headerlink" title="在初始化的时候拷贝引用"></a>在初始化的时候拷贝引用</h2><p>添加如下代码到你的Bill的实现类底部：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">init</span>(amount: <span class="type">Float</span>, billedTo: <span class="type">Person</span>) &#123;</span><br><span class="line">  <span class="keyword">self</span>.amount = amount</span><br><span class="line">  <span class="comment">// Create a new Person reference from the parameter</span></span><br><span class="line">  <span class="keyword">self</span>.billedTo = <span class="type">Person</span>(name: billedTo.name, address: billedTo.address)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里添加了一个构造器，你可以通过传递进来的name和address来创建一个新的Person实例，而不是简单给billedTo赋值。因此，调用者将无法通过编辑原来的Person副本来影响Bill结构体中billedTo属性。</p>
+<p>看看playground底部打印的两行并查看每个Bill实体的值，你将发现在修改传递过去的参数的Person值，他们任然保持原来的值不变。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bill.billedTo.name    <span class="comment">// "Robert"</span></span><br><span class="line">bill2.billedTo.name   <span class="comment">// "Robert"</span></span><br></pre></td></tr></table></figure>
+<p>这个设计最大的一个问题是你能够从外部去访问这个结构体的billedTo属性，这意味着外部实体能够通过意想不到的方式去修改他。</p>
+<p>在打印输出上方添加如下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bill.billedTo.name = <span class="string">"Bob"</span></span><br></pre></td></tr></table></figure>
+<p>现在检查打印的值，你将发现外部实体修改了他们的值，正是由于你上面这句代码导致的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bill.billedTo.name = <span class="string">"Bob"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Inspect values</span></span><br><span class="line">bill.billedTo.name    <span class="comment">// "Bob"</span></span><br><span class="line">bill2.billedTo.name   <span class="comment">// "Bob"</span></span><br></pre></td></tr></table></figure>
+<p>这里的问题是，即使你的结构体是不可变的，任何一个有权限的人都可以修改他底层数据。</p>
+<h2 id="使用-copy-on-write-计算属性"><a href="#使用-copy-on-write-计算属性" class="headerlink" title="使用 copy-on-write 计算属性"></a>使用 copy-on-write 计算属性</h2><p>原生Swift值类型实现了一个名叫 <strong>copy-on-write</strong> 的强大特性。当进行赋值时，每个引用指针指向同一个内存地址。只有当其中一个引用修改底部数据的时候Swift才会拷贝原始实体并进行修改。</p>
+<p>你可以通过创建一个私有的写入是返回的一个拷贝的billedTo属性。</p>
+<p>移除下面这些代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Remove these lines:</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">bill.billedTo.name = "Bob"</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">bill.billedTo.name</span></span><br><span class="line"><span class="comment">bill2.billedTo.name</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>现在使用下面这些代码来实现当前的Bill结构体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Bill</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> amount: <span class="type">Float</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> _billedTo: <span class="type">Person</span> <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2</span></span><br><span class="line">  <span class="keyword">var</span> billedToForRead: <span class="type">Person</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> _billedTo</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 3</span></span><br><span class="line">  <span class="keyword">var</span> billedToForWrite: <span class="type">Person</span> &#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="keyword">get</span> &#123;</span><br><span class="line">      _billedTo = <span class="type">Person</span>(name: _billedTo.name, address: _billedTo.address)</span><br><span class="line">      <span class="keyword">return</span> _billedTo</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(amount: <span class="type">Float</span>, billedTo: <span class="type">Person</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.amount = amount</span><br><span class="line">    _billedTo = <span class="type">Person</span>(name: billedTo.name, address: billedTo.address)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下是新的实现内容：</p>
+<ol>
+<li>你创建了一个私有变量 _billedTo 持有Person对象的引用。</li>
+<li>下一步你创建了一个计算属性 billedToForRead 来发回这个私有私有变量用于读取操作。</li>
+<li>最后，你创建了一个计算属性 billedToForWrite 它将总是创建一个新的唯一的Person类副本用于写操作。注意这个属性被声明为mutating，因为结构体中修改内部值是需要这样声明的。</li>
+</ol>
+<p>如果你能保证调用者你能按照你的意愿去使用这些结构体，这个方式能够解决你的问题。理想的状态下，调用者将总是用billedToForRead从你的引用中获取数据，用billedToForWrite修改引用数据。</p>
+<p>当是现实真的能如此完美吗？</p>
+<h2 id="防御型的修改方法"><a href="#防御型的修改方法" class="headerlink" title="防御型的修改方法"></a>防御型的修改方法</h2><p>你将必须添加一些防御型的代码，为了解决这个问题，你应该将这两个属性私有化并创建方法来进行交互。</p>
+<p>按照如下代码替换Bill的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Bill</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> amount: <span class="type">Float</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> _billedTo: <span class="type">Person</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> billedToForRead: <span class="type">Person</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> _billedTo</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> billedToForWrite: <span class="type">Person</span> &#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="keyword">get</span> &#123;</span><br><span class="line">      _billedTo = <span class="type">Person</span>(name: _billedTo.name, address: _billedTo.address)</span><br><span class="line">      <span class="keyword">return</span> _billedTo</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(amount: <span class="type">Float</span>, billedTo: <span class="type">Person</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.amount = amount</span><br><span class="line">    _billedTo = <span class="type">Person</span>(name: billedTo.name, address: billedTo.address)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2</span></span><br><span class="line">  <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">updateBilledToAddress</span><span class="params">(address: Address)</span></span> &#123;</span><br><span class="line">    billedToForWrite.address = address</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">updateBilledToName</span><span class="params">(name: String)</span></span> &#123;</span><br><span class="line">    billedToForWrite.name = name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ... Methods to read billedToForRead data</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里几点是以上代码做的调整：</p>
+<ol>
+<li>你将属性私有化，调用者将无法直接进行访问。</li>
+<li>你添加了 updateBilledToAddress 和 updateBilledToName 两个方法来进行对新的地址和名字的Person类的引用修改。这样的方式保证调用者能够正确的更新billedTo，因为你对外部隐藏的属性。当你使用var替换let来构建Bill对象，用mutating声明这些方法意味着你能够在这里面调用他们。这样的行为和你预期的效果是一致的。</li>
+</ol>
+<h1 id="更高效的Copy-on-Write"><a href="#更高效的Copy-on-Write" class="headerlink" title="更高效的Copy-on-Write"></a>更高效的Copy-on-Write</h1><p>最后对你的代码进行一些优化。你当前每次都会对Person的引用类型进行拷贝操作，而更好的方式是仅仅当多个对象持有这个引用的时候才进行拷贝操作。</p>
+<p>使用如下代码替换billedToForWrite方法的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> billedToForWrite: <span class="type">Person</span> &#123;</span><br><span class="line">  <span class="keyword">mutating</span> <span class="keyword">get</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> !isKnownUniquelyReferenced(&amp;_billedTo) &#123;</span><br><span class="line">      _billedTo = <span class="type">Person</span>(name: _billedTo.name, address: _billedTo.address)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _billedTo</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>isKnownUniquelyReferenced(_:)检查是否只有一个对象持有对传入参数的引用。如果没有其他对象共享这个引用，我们就不需要进行拷贝而是直接返回当前的引用即可。他将节省一份副本，并模拟了Swift对值类型的处理。</p>
+<p>看如下操作，按如下进行billedToForWrite方法的修改：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> billedToForWrite: <span class="type">Person</span> &#123;</span><br><span class="line">  <span class="keyword">mutating</span> <span class="keyword">get</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> !isKnownUniquelyReferenced(&amp;_billedTo) &#123;</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">"Making a copy of _billedTo"</span>)</span><br><span class="line">      _billedTo = <span class="type">Person</span>(name: _billedTo.name, address: _billedTo.address)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">"Not making a copy of _billedTo"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _billedTo</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这边你仅仅添加了log打印使得你能够看到是否进行拷贝或者没进行拷贝。</p>
+<p>在playground末尾添加如下Bill对象进行测试：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myBill = <span class="type">Bill</span>(amount: <span class="number">99.99</span>, billedTo: billPayer)</span><br></pre></td></tr></table></figure>
+<p>下一步，在playground末尾添加如下代码使用updateBilledToName(_:)方法进行更新操作。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myBill.updateBilledToName(name: <span class="string">"Eric"</span>) <span class="comment">// Not making a copy of _billedTo</span></span><br></pre></td></tr></table></figure>
+<p>因为myBill是唯一的引用，所以不会进行拷贝操作，你能够在debug窗口区域看到打印结果：</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/11/NoCopyDebugger.png" alt="debug"></p>
+<blockquote>
+<p>注：你实际看到了打印了两次结果，这是因为playground的侧边结果栏是动态对每行进行解析提供预览。这个结果一个是来自通过调用updateBilledToName(_:)中调用billedToForWrite属性得到的，另一个是来自侧边结果栏显示Person对象得到的。</p>
+</blockquote>
+<p>现在在调用updateBilledToName方法之前加入如下myBill的定义去触发拷贝操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> billCopy = myBill</span><br></pre></td></tr></table></figure>
+<p>你现在将在debugger窗口看到myBill确实在修改值之前进行_billedTo的拷贝操作。</p>
+<p><img src="https://koenig-media.raywenderlich.com/uploads/2015/11/CopyDebugger.png" alt="copy"></p>
+<p>你将看到一个额外的一个不匹配的打印在playground的侧边结果栏中。那是因为在修改值之前updateBilledToName(_:)创建了一个唯一的副本。当playground再次获取这个属性时候，没有其他对象共享这个引用拷贝，所以不会创建新的拷贝，亲。</p>
+<p>结论：高效的价值语义是引用类型和值类型的结合。</p>
+<h1 id="从这里我们学到了什么？"><a href="#从这里我们学到了什么？" class="headerlink" title="从这里我们学到了什么？"></a>从这里我们学到了什么？</h1><p>在这篇教程中，你学到了值与引用这两种类型的功能差异，你能够利用这些功能来保证你的代码安全的运行。你也学到了如何使用copy-on-write实现值类型，保证只有当需要拷贝的时候才进行拷贝操作。最后你还学到如何避免在一个对象中使用值类型和引用类型产生的混淆。</p>
+<p>真心希望，在混合值与引用类型的练习中告诉你如何去保持你语义始终如一，虽然是一个简单的场景。如果你发现你正遇见这样的场景，对他进行一些重新的设计将是不错的选择。</p>
+<p>教程中的这个例子强调确保Bill能够持有对Person的引用，但你也能够使用Person的唯一ID或者是简单的name。更进一步说，可能一开始设计Person作为一个类就是一个错误。这些事情都是在你项目需求发现变化时候需要进行评估的。</p>
+<p>我希望你能喜欢这篇教程。你能够使用在这里学到的内容去修改值类型的方法，来避免代码混淆。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="Jesse 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/21/Swift项目集成到Obc项目中的坑/" rel="prev" title="Swift项目集成到Obc项目中的坑">
+                Swift项目集成到Obc项目中的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="Jesse">
+            
+              <p class="site-author-name" itemprop="name">Jesse</p>
+              <p class="site-description motion-element" itemprop="description">love & peace</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xiejuqiang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/3162863135" target="_blank" title="Weibo">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://onevcat.com/#blog" title="喵神" target="_blank">喵神</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.cnbang.net/" title="bang" target="_blank">bang</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://limboy.me/" title="limboy" target="_blank">limboy</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://mrpeak.cn" title="Peak" target="_blank">Peak</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#入门"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用类型与值类型"><span class="nav-number">2.</span> <span class="nav-text">引用类型与值类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用类型"><span class="nav-number">3.</span> <span class="nav-text">引用类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#易变性"><span class="nav-number">4.</span> <span class="nav-text">易变性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift喜欢什么类型"><span class="nav-number">5.</span> <span class="nav-text">Swift喜欢什么类型?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何用何时用"><span class="nav-number">6.</span> <span class="nav-text">如何用何时用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#何时用值类型"><span class="nav-number">6.1.</span> <span class="nav-text">何时用值类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#还是无法决定？"><span class="nav-number">6.2.</span> <span class="nav-text">还是无法决定？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#混合值类型和引用类型"><span class="nav-number">7.</span> <span class="nav-text">混合值类型和引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引用类型包含值类型属性"><span class="nav-number">7.1.</span> <span class="nav-text">引用类型包含值类型属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值类型包含引用类型属性"><span class="nav-number">7.2.</span> <span class="nav-text">值类型包含引用类型属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从混合类型中得到值语义"><span class="nav-number">7.3.</span> <span class="nav-text">从混合类型中得到值语义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在初始化的时候拷贝引用"><span class="nav-number">7.4.</span> <span class="nav-text">在初始化的时候拷贝引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-copy-on-write-计算属性"><span class="nav-number">7.5.</span> <span class="nav-text">使用 copy-on-write 计算属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御型的修改方法"><span class="nav-number">7.6.</span> <span class="nav-text">防御型的修改方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更高效的Copy-on-Write"><span class="nav-number">8.</span> <span class="nav-text">更高效的Copy-on-Write</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从这里我们学到了什么？"><span class="nav-number">9.</span> <span class="nav-text">从这里我们学到了什么？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jesse</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("FeAH8hizO74v2zPQMVXtTo0H-gzGzoHsz", "2ciuFIuYKQc1IAvJtQ6Lv5Jp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
