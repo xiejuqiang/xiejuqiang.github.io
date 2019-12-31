@@ -83,19 +83,19 @@
 
 
 
-<meta name="description" content="背景环境：最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。 第一步Pod库去重集成首先就是要修改podfile文件，为">
+<meta name="description" content="之前想说除了写点东西外，也能放些自己觉得不错的照片（自己拍的）到blog上就完美了，网上看着教程搬砖搞了一下午算是弄了个样子出来（笑哭😂）。 如果还没有搭建hexo-next主题的可以参考   https://www.jianshu.com/p/cbf8ba8af532  主要部分 相册图片应该存储在哪里（这里我们放在github上）、图片裁剪处理（别人用python写好的😝） 在next主">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift项目集成到Obc项目中的坑">
-<meta property="og:url" content="http://yoursite.com/2019/03/21/Swift项目集成到Obc项目中的坑/index.html">
+<meta property="og:title" content="hexo-next主题相册功能搭建">
+<meta property="og:url" content="http://yoursite.com/2019/12/31/hexo-next主题相册功能搭建/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="背景环境：最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。 第一步Pod库去重集成首先就是要修改podfile文件，为">
+<meta property="og:description" content="之前想说除了写点东西外，也能放些自己觉得不错的照片（自己拍的）到blog上就完美了，网上看着教程搬砖搞了一下午算是弄了个样子出来（笑哭😂）。 如果还没有搭建hexo-next主题的可以参考   https://www.jianshu.com/p/cbf8ba8af532  主要部分 相册图片应该存储在哪里（这里我们放在github上）、图片裁剪处理（别人用python写好的😝） 在next主">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553170539413&di=26fa8fcdaa3179d396c866bc1cb3d4e2&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg">
-<meta property="og:updated_time" content="2019-04-01T08:51:05.149Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/xiejuqiang/BlogPhotosBackup/master/photos/2019-12-30_智园翠谷-花朵.png">
+<meta property="og:updated_time" content="2019-12-31T10:13:09.634Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift项目集成到Obc项目中的坑">
-<meta name="twitter:description" content="背景环境：最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。 第一步Pod库去重集成首先就是要修改podfile文件，为">
-<meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553170539413&di=26fa8fcdaa3179d396c866bc1cb3d4e2&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg">
+<meta name="twitter:title" content="hexo-next主题相册功能搭建">
+<meta name="twitter:description" content="之前想说除了写点东西外，也能放些自己觉得不错的照片（自己拍的）到blog上就完美了，网上看着教程搬砖搞了一下午算是弄了个样子出来（笑哭😂）。 如果还没有搭建hexo-next主题的可以参考   https://www.jianshu.com/p/cbf8ba8af532  主要部分 相册图片应该存储在哪里（这里我们放在github上）、图片裁剪处理（别人用python写好的😝） 在next主">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xiejuqiang/BlogPhotosBackup/master/photos/2019-12-30_智园翠谷-花朵.png">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/21/Swift项目集成到Obc项目中的坑/">
+  <link rel="canonical" href="http://yoursite.com/2019/12/31/hexo-next主题相册功能搭建/">
 
 
 
 
 
-  <title>Swift项目集成到Obc项目中的坑 | Jesse's Blog</title>
+  <title>hexo-next主题相册功能搭建 | Jesse's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/Swift项目集成到Obc项目中的坑/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/31/hexo-next主题相册功能搭建/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jesse">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Swift项目集成到Obc项目中的坑</h1>
+          <h1 class="post-title" itemprop="name headline">hexo-next主题相册功能搭建</h1>
         
 
         <div class="post-meta">
@@ -309,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-21T16:53:45+08:00">
-                2019-03-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-31T18:08:24+08:00">
+                2019-12-31
               </time>
             
 
@@ -350,8 +350,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/21/Swift项目集成到Obc项目中的坑/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/21/Swift项目集成到Obc项目中的坑/" itemprop="commentCount"></span>
+                <a href="/2019/12/31/hexo-next主题相册功能搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/12/31/hexo-next主题相册功能搭建/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -359,7 +359,7 @@
 
           
           
-             <span id="/2019/03/21/Swift项目集成到Obc项目中的坑/" class="leancloud_visitors" data-flag-title="Swift项目集成到Obc项目中的坑">
+             <span id="/2019/12/31/hexo-next主题相册功能搭建/" class="leancloud_visitors" data-flag-title="hexo-next主题相册功能搭建">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -390,39 +390,84 @@
       
 
       
-        <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1553170539413&amp;di=26fa8fcdaa3179d396c866bc1cb3d4e2&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg" alt="logo"></p>
-<h2 id="背景环境："><a href="#背景环境：" class="headerlink" title="背景环境："></a>背景环境：</h2><p>最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。<br>先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。</p>
-<h2 id="第一步Pod库去重集成"><a href="#第一步Pod库去重集成" class="headerlink" title="第一步Pod库去重集成"></a>第一步Pod库去重集成</h2><p>首先就是要修改podfile文件，为了兼容Swift 要添加 </p>
+        <p><img src="https://raw.githubusercontent.com/xiejuqiang/BlogPhotosBackup/master/photos/2019-12-30_智园翠谷-花朵.png" alt="logo"></p>
+<p>之前想说除了写点东西外，也能放些自己觉得不错的照片（自己拍的）到blog上就完美了，网上看着教程搬砖搞了一下午算是弄了个样子出来（笑哭😂）。</p>
+<p>如果还没有搭建hexo-next主题的可以参考 </p>
 <blockquote>
-<p>use_framework</p>
+<p><a href="https://www.jianshu.com/p/cbf8ba8af532" target="_blank" rel="noopener">https://www.jianshu.com/p/cbf8ba8af532</a></p>
 </blockquote>
-<a id="more"></a>
-<h4 id="Q"><a href="#Q" class="headerlink" title="Q:"></a>Q:</h4><p>添加后执行pod install 发现提示Unable to determine Swift version for the following pods:错误</p>
-<h4 id="A"><a href="#A" class="headerlink" title="A:"></a>A:</h4><p>点buildSettings中的+号，添加SWIFT_VERSION，指定版本号4.2(根据你最新的Swift版本添加),再执行pod install解决问题。</p>
-<h4 id="Q-1"><a href="#Q-1" class="headerlink" title="Q:"></a>Q:</h4><p>iOS Undefined symbols for architecture arm64解决办法</p>
-<h4 id="A-1"><a href="#A-1" class="headerlink" title="A:"></a>A:</h4><p>1.Build Setting-&gt;Architectures查看是否包含arm64指令集<br>2.如果用CocoaPods导入的库，Build Setting-&gt;Linking-&gt;Other Linker Flags，添加$(inherited)</p>
-<h2 id="兼容Swift的工程配置设置"><a href="#兼容Swift的工程配置设置" class="headerlink" title="兼容Swift的工程配置设置"></a>兼容Swift的工程配置设置</h2><p>Defines Module 设置为YES<br>OC引用Swift Xcode自动式实现的桥接文件命名方式是ProductModuleName-Swift.h<br>直接在OC项目中，import ProductModuleName-Swift.h即可</p>
-<p><strong><em>Swift 方法 大括号前面一定要空格，否则不会被识别到 roductModuleName-Swift.h 中就oc类就无法调用，只能swif类内部调用了。</em></strong></p>
-<h3 id="一-OC调用Swift中的Class类这里"><a href="#一-OC调用Swift中的Class类这里" class="headerlink" title="一. OC调用Swift中的Class类这里"></a>一. OC调用Swift中的Class类这里</h3><ul>
-<li>1.这个类必须是继承NSObjec或者NSObjec的子类</li>
-<li>2.Class前面要加@objcMembers (这个关键字是让该类所有属性和方法加上@objc)，3.0之前是苹果自动帮你加上的，据说嫌弃打包会偏大一些，后面改成玩家自己加。 例如：@objcMembers class CustomServiceTool: NSObject {}</li>
-<li><p>3.类中的协议、枚举、结构体这些东西的调用</p>
-<ol>
-<li><p>协议：直接在前面加一个@objc</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@objc</span> <span class="class"><span class="keyword">protocol</span> <span class="title">CustomServiceToolDelegate</span>: <span class="title">NSObjectProtocol</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="主要部分"><a href="#主要部分" class="headerlink" title="主要部分"></a>主要部分</h2><ol>
+<li>相册图片应该存储在哪里（这里我们放在github上）、图片裁剪处理（别人用python写好的😝）</li>
+<li>在next主题中进行相关的配置和实现。</li>
+</ol>
+<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><ol>
+<li>使用github创建一个新项目（作为相册存储及处理的仓库），本文项目名统一为album (自己取名都行)，并clone到本地</li>
+<li>在项目album目录下建立两个特点名称的文件夹：<ol>
+<li>min_photos (空即可)</li>
+<li>photos（添加自己的美图，图片命名规则：yyyy-mm-dd_filename.jpg/png）filename里面不能有” _ “ </li>
+</ol>
 </li>
-<li><p>枚举：试了一下，必须定义出Int类型，前面加@objc才能调用(毕竟swift的枚举比OC强大太多)</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@objc</span> <span class="class"><span class="keyword">enum</span> <span class="title">CPLineType</span>: <span class="title">Int</span> </span>&#123;  <span class="keyword">case</span> schoolToHome = <span class="number">0</span> 		<span class="keyword">case</span> homeToSchool 		<span class="keyword">case</span> <span class="keyword">return</span>&#125;</span><br></pre></td></tr></table></figure>
+<li><p>继续在album项目目录下添加如下两个python文件用于图片处理的：<br><a href="https://note.youdao.com/ynoteshare1/index.html?id=994202bf2704ed7268e31e0edbc18fda&amp;type=note" target="_blank" rel="noopener">ImageProcess.py</a><br>  <a href="https://note.youdao.com/ynoteshare1/index.html?id=54b939c5943d7c91b89a82f453900354&amp;type=note" target="_blank" rel="noopener">tool.py</a></p>
+<ol>
+<li>tool.py 文件修改为博客位置：with open(“<strong>My_Blog_PATH</strong>/themes/next/source/lib/album/data.json”,”w”) as fp: json.dump(final_dict, fp, ensure_ascii=False)</li>
+<li>在个人博客项目中的/themes/next/source/lib/ 下建立一个文件夹album。（目的是存储图片的链接）</li>
+</ol>
+</li>
+<li><p>终端执行 python3 tool.py 失败的话可能要安装Pillow</p>
+<blockquote>
+<p>python3 -m pip install Pillow</p>
+</blockquote>
+<p>成功的话输出如下：</p>
+<blockquote>
+<p>This program helps compress many image files</p>
+</blockquote>
+<blockquote>
+<p>you can choose which scale you want to compress your img(jpg/png/etc)</p>
+</blockquote>
+<blockquote>
+<p>1) normal compress(4M to 1M around)</p>
+</blockquote>
+<blockquote>
+<p>2) small compress(4M to 500K around)</p>
+</blockquote>
+<blockquote>
+<p>3) smaller compress(4M to 300K around)</p>
+</blockquote>
+<blockquote>
+<p>(若min_photos文件夹出现了图片即处理成功，同时在/themes/next/source/lib/album/路径下出现data.json文件）</p>
+</blockquote>
+</li>
+</ol>
+<p>第一步end</p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><ol>
+<li>在自己的博客根目录下执行：hexo n page photos</li>
+<li>在theme/next/_config.yml配置文件中menu选项添加photos：相册:/photos/ || camera</li>
+<li>在根目录下 source/photos 文件夹中的index.md 替换为<a href="https://note.youdao.com/ynoteshare1/index.html?id=0f76de9de083db92ccab3df043e8e336&amp;type=note" target="_blank" rel="noopener">index.md</a>(注意要修改里面博客地址为自己的博客地址)</li>
+<li><p>添加一系列文件</p>
+<ol>
+<li><p>在在themes/next/source/lib/album/下添加<a href="https://note.youdao.com/ynoteshare1/index.html?id=d03bde161e2c299a388cea21d8ba1475&amp;type=notebook" target="_blank" rel="noopener">文件</a> 修改ins.js文件中121和122行图片的路径：</p>
+<p>例如:<a href="https://raw.githubusercontent.com/你的github名称/存图片的存库名称/master/min_photos/" target="_blank" rel="noopener">https://raw.githubusercontent.com/你的github名称/存图片的存库名称/master/min_photos/</a><br>例如:<a href="https://raw.githubusercontent.com/你的github名称/存图片的存库名称/master/photos/" target="_blank" rel="noopener">https://raw.githubusercontent.com/你的github名称/存图片的存库名称/master/photos/</a></p>
+<p>(注意：域名是固定的<a href="https://raw.githubusercontent.com" target="_blank" rel="noopener">https://raw.githubusercontent.com</a>)</p>
 </li>
 </ol>
 </li>
-</ul>
-<p>    3. 结构体：在oc中是不能调用struct里面的内容的，你想在类似class前面加个   @objc的方法加在struct前面是不行的，那但是我们又想在oc中调用struct的属性，那怎 么办呢？我们只能够再建一个类，在类里写个方法来返回struct中的值<br>    坑点：</p>
+<li><p>配置文件代码</p>
+<ol>
+<li>在文件next/layout/_layout.swig的head标签添加对js文件引用：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;&#123;&#123; url_for(theme.js) &#125;&#125;/src/photoswipe.min.js?v=&#123;&#123; theme.version &#125;&#125;&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;&#123;&#123; url_for(theme.js) &#125;&#125;/src/photoswipe-ui-default.min.js?v=&#123;&#123; theme.version &#125;&#125;&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li>在文件next/layout/_layout.swig的body标签下添加<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">   &#123;% if page.type === &quot;photos&quot; %&#125;</span><br><span class="line">  &lt;!-- Root element of PhotoSwipe. Must have class pswp. --&gt;</span><br><span class="line">  &lt;div class=&quot;pswp&quot; tabindex=&quot;-1&quot; role=&quot;dialog&quot; aria-hidden=&quot;true&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;pswp__bg&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;pswp__scroll-wrap&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;pswp__container&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__item&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__item&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__item&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;pswp__ui pswp__ui--hidden&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__top-bar&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;pswp__counter&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;button class=&quot;pswp__button pswp__button--close&quot; title=&quot;Close (Esc)&quot;&gt;&lt;/button&gt;</span><br><span class="line">                &lt;button class=&quot;pswp__button pswp__button--share&quot; title=&quot;Share&quot;&gt;&lt;/button&gt;</span><br><span class="line">                &lt;button class=&quot;pswp__button pswp__button--fs&quot; title=&quot;Toggle fullscreen&quot;&gt;&lt;/button&gt;</span><br><span class="line">                &lt;button class=&quot;pswp__button pswp__button--zoom&quot; title=&quot;Zoom in/out&quot;&gt;&lt;/button&gt;</span><br><span class="line">                &lt;!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR --&gt;</span><br><span class="line">                &lt;!-- element will get class pswp__preloader--active when preloader is running --&gt;</span><br><span class="line">                &lt;div class=&quot;pswp__preloader&quot;&gt;</span><br><span class="line">                    &lt;div class=&quot;pswp__preloader__icn&quot;&gt;</span><br><span class="line">                      &lt;div class=&quot;pswp__preloader__cut&quot;&gt;</span><br><span class="line">                        &lt;div class=&quot;pswp__preloader__donut&quot;&gt;&lt;/div&gt;</span><br><span class="line">                      &lt;/div&gt;</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__share-modal pswp__share-modal--hidden pswp__single-tap&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;pswp__share-tooltip&quot;&gt;&lt;/div&gt; </span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;button class=&quot;pswp__button pswp__button--arrow--left&quot; title=&quot;Previous (arrow left)&quot;&gt;</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line">            &lt;button class=&quot;pswp__button pswp__button--arrow--right&quot; title=&quot;Next (arrow right)&quot;&gt;</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__caption&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;pswp__caption__center&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>第二步end</p>
+<p>提交博客修改：</p>
 <blockquote>
-<p>1.每次在一个类前面加个@objcMembers的时候都需要重新编译一遍才能打出提示（混编期间，报错请不要怀疑自己的代码，大部分编译一下就没事了。。。）</p>
-<p>2.有种特殊的情况，比如我一个OC控制器中调用了swift写的view，然后其他用swift写的控制器需要调用OC控制器，这时候要是只是把OC控制器写到桥接文件中是会报错的。(这种就是混编项目比较变态的情况)————解决办法：swift写的View用向前声明（ @class BannerView）；</p>
-<p>3.swift中的一些类型是OC没有的，或者类型名字差不多但是类型完全不同 例如： swift中的Int定义成可选类型的时候，这时候OC是调不了swift的Int类型，解决方式，定义普通Int型</p>
+<p>hexo clean<br>hexo g<br>hexo d</p>
 </blockquote>
+<p>最后可以看看效果了。</p>
 
       
     </div>
@@ -471,8 +516,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/11/hello-world/" rel="next" title="Swift中的引用与值类型">
-                <i class="fa fa-chevron-left"></i> Swift中的引用与值类型
+              <a href="/2019/07/31/NetworkFamework/" rel="next" title="iOS 网络框架：如何监测网络状态变化">
+                <i class="fa fa-chevron-left"></i> iOS 网络框架：如何监测网络状态变化
               </a>
             
           </div>
@@ -480,10 +525,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/28/What-s-New-in-Swift-5/" rel="prev" title="What's New in Swift 5">
-                What's New in Swift 5 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +694,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景环境："><span class="nav-number">1.</span> <span class="nav-text">背景环境：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步Pod库去重集成"><span class="nav-number">2.</span> <span class="nav-text">第一步Pod库去重集成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Q"><span class="nav-number">2.0.1.</span> <span class="nav-text">Q:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A"><span class="nav-number">2.0.2.</span> <span class="nav-text">A:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">Q:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-1"><span class="nav-number">2.0.4.</span> <span class="nav-text">A:</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容Swift的工程配置设置"><span class="nav-number">3.</span> <span class="nav-text">兼容Swift的工程配置设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-OC调用Swift中的Class类这里"><span class="nav-number">3.1.</span> <span class="nav-text">一. OC调用Swift中的Class类这里</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要部分"><span class="nav-number">1.</span> <span class="nav-text">主要部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体步骤"><span class="nav-number">2.</span> <span class="nav-text">具体步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步"><span class="nav-number">2.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步"><span class="nav-number">2.2.</span> <span class="nav-text">第二步</span></a></li></ol></li></ol></div>
             
 
           </div>
