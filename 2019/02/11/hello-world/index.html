@@ -83,12 +83,12 @@
 
 
 
-<meta name="description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
+<meta name="description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift中的引用与值类型">
 <meta property="og:url" content="http://yoursite.com/2019/02/11/hello-world/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
+<meta property="og:description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/08/value-reference.png">
@@ -96,10 +96,10 @@
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2018/12/swift_measure-320x320.png">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/NoCopyDebugger.png">
 <meta property="og:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/CopyDebugger.png">
-<meta property="og:updated_time" content="2019-02-14T02:54:48.000Z">
+<meta property="og:updated_time" content="2019-12-31T10:18:12.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift中的引用与值类型">
-<meta name="twitter:description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。 如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 值类型 的偏爱要超过 引用类型。 在本教程中，您将学习到：  值与引用类型的主要概念 两者之间的差异 如何选择使用哪个类型  当您了解每种类型的主要概念时，您将解">
+<meta name="twitter:description" content="原文  通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。">
 <meta name="twitter:image" content="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png">
 
 
@@ -398,6 +398,7 @@
         <p><a href="https://www.raywenderlich.com/9481-reference-vs-value-types-in-swift" target="_blank" rel="noopener">原文</a></p>
 <p><img src="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png" alt="mylogo"></p>
 <p>通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。</p>
+<a id="more"></a>
 <p>如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 <strong>值类型</strong> 的偏爱要超过 <strong>引用类型</strong>。</p>
 <p>在本教程中，您将学习到：</p>
 <ul>
@@ -407,7 +408,6 @@
 </ul>
 <p>当您了解每种类型的主要概念时，您将解决现实中的问题。此外，您将学习更多高级的概念并发现两者微妙但重要的观点。</p>
 <p>不论您是来自Objective-c背景，还是您对Swift更精通，您一定会学到一些关于Swift输入输出的细节。</p>
-<a id="more"></a>
 <h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>首先，新建一个playground，在Xcode选择File-&gt;New-&gt;Playground…并命名playground为ReferenceTypes。</p>
 <blockquote>
 <p>注：您可以选择任何平台，因为本教程是与平台无关的，只关注Swift语言方面。</p>

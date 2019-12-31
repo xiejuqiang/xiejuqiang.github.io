@@ -391,87 +391,15 @@
 
       
         
-          
-            <p><img src="https://raw.githubusercontent.com/xiejuqiang/BlogPhotosBackup/master/photos/2019-12-30_智园翠谷-花朵.png" alt="logo"></p>
+          <p><img src="https://raw.githubusercontent.com/xiejuqiang/BlogPhotosBackup/master/photos/2019-12-30_智园翠谷-花朵.png" alt="logo"></p>
 <p>之前想说除了写点东西外，也能放些自己觉得不错的照片（自己拍的）到blog上就完美了，网上看着教程搬砖搞了一下午算是弄了个样子出来（笑哭😂）。</p>
-<p>如果还没有搭建hexo-next主题的可以参考 </p>
-<blockquote>
-<p><a href="https://www.jianshu.com/p/cbf8ba8af532" target="_blank" rel="noopener">https://www.jianshu.com/p/cbf8ba8af532</a></p>
-</blockquote>
-<h2 id="主要部分"><a href="#主要部分" class="headerlink" title="主要部分"></a>主要部分</h2><ol>
-<li>相册图片应该存储在哪里（这里我们放在github上）、图片裁剪处理（别人用python写好的😝）</li>
-<li>在next主题中进行相关的配置和实现。</li>
-</ol>
-<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><ol>
-<li>使用github创建一个新项目（作为相册存储及处理的仓库），本文项目名统一为album (自己取名都行)，并clone到本地</li>
-<li>在项目album目录下建立两个特点名称的文件夹：<ol>
-<li>min_photos (空即可)</li>
-<li>photos（添加自己的美图，图片命名规则：yyyy-mm-dd_filename.jpg/png）filename里面不能有” _ “ </li>
-</ol>
-</li>
-<li><p>继续在album项目目录下添加如下两个python文件用于图片处理的：<br><a href="https://note.youdao.com/ynoteshare1/index.html?id=994202bf2704ed7268e31e0edbc18fda&amp;type=note" target="_blank" rel="noopener">ImageProcess.py</a><br>  <a href="https://note.youdao.com/ynoteshare1/index.html?id=54b939c5943d7c91b89a82f453900354&amp;type=note" target="_blank" rel="noopener">tool.py</a></p>
-<ol>
-<li>tool.py 文件修改为博客位置：with open(“<strong>My_Blog_PATH</strong>/themes/next/source/lib/album/data.json”,”w”) as fp: json.dump(final_dict, fp, ensure_ascii=False)</li>
-<li>在个人博客项目中的/themes/next/source/lib/ 下建立一个文件夹album。（目的是存储图片的链接）</li>
-</ol>
-</li>
-<li><p>终端执行 python3 tool.py 失败的话可能要安装Pillow</p>
-<blockquote>
-<p>python3 -m pip install Pillow</p>
-</blockquote>
-<p>成功的话输出如下：</p>
-<blockquote>
-<p>This program helps compress many image files</p>
-</blockquote>
-<blockquote>
-<p>you can choose which scale you want to compress your img(jpg/png/etc)</p>
-</blockquote>
-<blockquote>
-<p>1) normal compress(4M to 1M around)</p>
-</blockquote>
-<blockquote>
-<p>2) small compress(4M to 500K around)</p>
-</blockquote>
-<blockquote>
-<p>3) smaller compress(4M to 300K around)</p>
-</blockquote>
-<blockquote>
-<p>(若min_photos文件夹出现了图片即处理成功，同时在/themes/next/source/lib/album/路径下出现data.json文件）</p>
-</blockquote>
-</li>
-</ol>
-<p>第一步end</p>
-<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><ol>
-<li>在自己的博客根目录下执行：hexo n page photos</li>
-<li>在theme/next/_config.yml配置文件中menu选项添加photos：相册:/photos/ || camera</li>
-<li>在根目录下 source/photos 文件夹中的index.md 替换为<a href="https://note.youdao.com/ynoteshare1/index.html?id=0f76de9de083db92ccab3df043e8e336&amp;type=note" target="_blank" rel="noopener">index.md</a>(注意要修改里面博客地址为自己的博客地址)</li>
-<li><p>添加一系列文件</p>
-<ol>
-<li><p>在在themes/next/source/lib/album/下添加<a href="https://note.youdao.com/ynoteshare1/index.html?id=d03bde161e2c299a388cea21d8ba1475&amp;type=notebook" target="_blank" rel="noopener">文件</a> 修改ins.js文件中121和122行图片的路径：</p>
-<p>例如:<a href="https://raw.githubusercontent.com/你的github名称/存图片的存库名称/master/min_photos/" target="_blank" rel="noopener">https://raw.githubusercontent.com/你的github名称/存图片的存库名称/master/min_photos/</a><br>例如:<a href="https://raw.githubusercontent.com/你的github名称/存图片的存库名称/master/photos/" target="_blank" rel="noopener">https://raw.githubusercontent.com/你的github名称/存图片的存库名称/master/photos/</a></p>
-<p>(注意：域名是固定的<a href="https://raw.githubusercontent.com" target="_blank" rel="noopener">https://raw.githubusercontent.com</a>)</p>
-</li>
-</ol>
-</li>
-<li><p>配置文件代码</p>
-<ol>
-<li>在文件next/layout/_layout.swig的head标签添加对js文件引用：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;&#123;&#123; url_for(theme.js) &#125;&#125;/src/photoswipe.min.js?v=&#123;&#123; theme.version &#125;&#125;&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;&#123;&#123; url_for(theme.js) &#125;&#125;/src/photoswipe-ui-default.min.js?v=&#123;&#123; theme.version &#125;&#125;&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-<ol start="2">
-<li>在文件next/layout/_layout.swig的body标签下添加<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">   &#123;% if page.type === &quot;photos&quot; %&#125;</span><br><span class="line">  &lt;!-- Root element of PhotoSwipe. Must have class pswp. --&gt;</span><br><span class="line">  &lt;div class=&quot;pswp&quot; tabindex=&quot;-1&quot; role=&quot;dialog&quot; aria-hidden=&quot;true&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;pswp__bg&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;pswp__scroll-wrap&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;pswp__container&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__item&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__item&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__item&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div class=&quot;pswp__ui pswp__ui--hidden&quot;&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__top-bar&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;pswp__counter&quot;&gt;&lt;/div&gt;</span><br><span class="line">                &lt;button class=&quot;pswp__button pswp__button--close&quot; title=&quot;Close (Esc)&quot;&gt;&lt;/button&gt;</span><br><span class="line">                &lt;button class=&quot;pswp__button pswp__button--share&quot; title=&quot;Share&quot;&gt;&lt;/button&gt;</span><br><span class="line">                &lt;button class=&quot;pswp__button pswp__button--fs&quot; title=&quot;Toggle fullscreen&quot;&gt;&lt;/button&gt;</span><br><span class="line">                &lt;button class=&quot;pswp__button pswp__button--zoom&quot; title=&quot;Zoom in/out&quot;&gt;&lt;/button&gt;</span><br><span class="line">                &lt;!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR --&gt;</span><br><span class="line">                &lt;!-- element will get class pswp__preloader--active when preloader is running --&gt;</span><br><span class="line">                &lt;div class=&quot;pswp__preloader&quot;&gt;</span><br><span class="line">                    &lt;div class=&quot;pswp__preloader__icn&quot;&gt;</span><br><span class="line">                      &lt;div class=&quot;pswp__preloader__cut&quot;&gt;</span><br><span class="line">                        &lt;div class=&quot;pswp__preloader__donut&quot;&gt;&lt;/div&gt;</span><br><span class="line">                      &lt;/div&gt;</span><br><span class="line">                    &lt;/div&gt;</span><br><span class="line">                &lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__share-modal pswp__share-modal--hidden pswp__single-tap&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;pswp__share-tooltip&quot;&gt;&lt;/div&gt; </span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;button class=&quot;pswp__button pswp__button--arrow--left&quot; title=&quot;Previous (arrow left)&quot;&gt;</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line">            &lt;button class=&quot;pswp__button pswp__button--arrow--right&quot; title=&quot;Next (arrow right)&quot;&gt;</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line">            &lt;div class=&quot;pswp__caption&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;pswp__caption__center&quot;&gt;&lt;/div&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>第二步end</p>
-<p>提交博客修改：</p>
-<blockquote>
-<p>hexo clean<br>hexo g<br>hexo d</p>
-</blockquote>
-<p>最后可以看看效果了。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/12/31/hexo-next主题相册功能搭建/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -636,8 +564,6 @@
 <p>翻译：by jesse</p>
 <hr>
 <p>大家好，欢迎观临！所有与服务器交换数据的应用始终必须了解的一件事情：他们是否连上Intenet。离线时，通常需要改变用户体验并更新用户界面，来反映应用程序无法执行基于网络的操作。此外，即使应用程序连接到Internet，了解连接类型（如Wifi或者蜂窝网络）也是非常的有帮助。没有人愿意在不知道的情况下应用程通过用蜂窝网络去拉取大量的数据，因为这会导致用户移动数据计划的额外成本。用户应该能够根据自己的意愿开启或者关闭的功能。</p>
-<p>值得庆幸的是，获得所需信息已确定以上内容已经变得非常的简单，因为Apple在iOS 12 中提供了Network 框架。有了它，获取网络状态和收到变更的通知是一个标准和简单的过程，我们将在今天这篇文章中看到详细信息。在iOS 12 之前，要获取必要的网络信息并监听它的变化是要基于SCNetworkReachability API，是一件繁琐的任务，更像是C语言的解决方案。多年来，一些自定义实现使得使用SCNetworkReachability变的更容易，但是随着Network框架推出将近一年，它将很快成为历史。</p>
-<p>在这篇文章中，我们不仅能看到Network框架的细节和如何使用它去监测网络状态的变化，而且在接下来的部分我们还将通过基于我们将要执行的实现创建小型的自定义框架作为一个可以复用的组件。锦上添花我们将要把自定义框架制作为cocoaPods分发并展示它所需要的所有集成步骤，感兴趣吗？</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/07/31/NetworkFamework/#more" rel="contents">
@@ -807,8 +733,6 @@
           <p><img src="https://koenig-media.raywenderlich.com/uploads/2019/03/WhatsNewSwift5-feature.png" alt="logo"></p>
 <p><a href="https://www.raywenderlich.com/55728-what-s-new-in-swift-5" target="_blank" rel="noopener">原文</a></p>
 <p>好消息！Swift 5 最终正式版在Xcode 10.2 中可使用。这个版本带来稳定的ABI和对一些期待已久的特性的完善。</p>
-<p>这个教程中，你将学到关于Swift 5重要的改变。Swift 5需要Xcode 10.2，所以在开始之前确定你已经安装了Xcode 10.2.</p>
-<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>Swift 5 是源码兼容Swift 4.2，但不是二进制兼容Swift之前的版本。不过由于稳定的ABI在未来的版本中将是二进制兼容Swift 5。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/28/What-s-New-in-Swift-5/#more" rel="contents">
@@ -976,11 +900,7 @@
       
         
           <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1553170539413&amp;di=26fa8fcdaa3179d396c866bc1cb3d4e2&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F017c5f5568e9e50000012716e6506b.jpg%401280w_1l_2o_100sh.jpg" alt="logo"></p>
-<h2 id="背景环境："><a href="#背景环境：" class="headerlink" title="背景环境："></a>背景环境：</h2><p>最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。<br>先来说说我的思路，首先是先将第三方pod库去重加入到Obc项目中，然后再将源码除去APPDelegate，pch，info.plist 等通用文件其他的都拖进项目中，额，再做每一个步骤的时候最好是做好一步就build一次，这样更加容易解决报错。</p>
-<h2 id="第一步Pod库去重集成"><a href="#第一步Pod库去重集成" class="headerlink" title="第一步Pod库去重集成"></a>第一步Pod库去重集成</h2><p>首先就是要修改podfile文件，为了兼容Swift 要添加 </p>
-<blockquote>
-<p>use_framework</p>
-</blockquote>
+<h2 id="背景环境："><a href="#背景环境：" class="headerlink" title="背景环境："></a>背景环境：</h2><p>最近公司要求将手头的Swift项目集成到新的Obc项目中去，于是乎就开始了踩坑过程。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/21/Swift项目集成到Obc项目中的坑/#more" rel="contents">
@@ -1150,15 +1070,6 @@
           <p><a href="https://www.raywenderlich.com/9481-reference-vs-value-types-in-swift" target="_blank" rel="noopener">原文</a></p>
 <p><img src="https://koenig-media.raywenderlich.com/uploads/2015/11/ReferenceValues-feature.png" alt="mylogo"></p>
 <p>通过解决实际问题，了解Swift中引用和值类型之间的微妙但重要的差异。</p>
-<p>如果您一直在跟踪最近的WWDC大会，您可能已经注意到在swift中重新思考代码架构。从Objective-c到Swift时，开发人员注意到的最大差异之一是对 <strong>值类型</strong> 的偏爱要超过 <strong>引用类型</strong>。</p>
-<p>在本教程中，您将学习到：</p>
-<ul>
-<li>值与引用类型的主要概念</li>
-<li>两者之间的差异</li>
-<li>如何选择使用哪个类型</li>
-</ul>
-<p>当您了解每种类型的主要概念时，您将解决现实中的问题。此外，您将学习更多高级的概念并发现两者微妙但重要的观点。</p>
-<p>不论您是来自Objective-c背景，还是您对Swift更精通，您一定会学到一些关于Swift输入输出的细节。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/02/11/hello-world/#more" rel="contents">

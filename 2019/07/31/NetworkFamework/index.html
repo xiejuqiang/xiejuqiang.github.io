@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://gratisography.com/thumbnails/gratisography-gear-contraption-thumbnail.jpg">
 <meta property="og:image" content="https://www.appcoda.com/wp-content/uploads/2019/07/t66_1_first_sample.png">
 <meta property="og:image" content="https://www.appcoda.com/wp-content/uploads/2019/07/t66_2_sample.gif">
-<meta property="og:updated_time" content="2019-07-31T07:49:28.684Z">
+<meta property="og:updated_time" content="2019-12-31T10:17:45.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 网络框架：如何监测网络状态变化">
 <meta name="twitter:description" content="原文：https://www.appcoda.com/network-framework/ 翻译：by jesse  大家好，欢迎观临！所有与服务器交换数据的应用始终必须了解的一件事情：他们是否连上Intenet。离线时，通常需要改变用户体验并更新用户界面，来反映应用程序无法执行基于网络的操作。此外，即使应用程序连接到Internet，了解连接类型（如Wifi或者蜂窝网络）也是非常的有帮助。没有">
@@ -397,9 +397,9 @@
 <p>翻译：by jesse</p>
 <hr>
 <p>大家好，欢迎观临！所有与服务器交换数据的应用始终必须了解的一件事情：他们是否连上Intenet。离线时，通常需要改变用户体验并更新用户界面，来反映应用程序无法执行基于网络的操作。此外，即使应用程序连接到Internet，了解连接类型（如Wifi或者蜂窝网络）也是非常的有帮助。没有人愿意在不知道的情况下应用程通过用蜂窝网络去拉取大量的数据，因为这会导致用户移动数据计划的额外成本。用户应该能够根据自己的意愿开启或者关闭的功能。</p>
+<a id="more"></a>
 <p>值得庆幸的是，获得所需信息已确定以上内容已经变得非常的简单，因为Apple在iOS 12 中提供了Network 框架。有了它，获取网络状态和收到变更的通知是一个标准和简单的过程，我们将在今天这篇文章中看到详细信息。在iOS 12 之前，要获取必要的网络信息并监听它的变化是要基于SCNetworkReachability API，是一件繁琐的任务，更像是C语言的解决方案。多年来，一些自定义实现使得使用SCNetworkReachability变的更容易，但是随着Network框架推出将近一年，它将很快成为历史。</p>
 <p>在这篇文章中，我们不仅能看到Network框架的细节和如何使用它去监测网络状态的变化，而且在接下来的部分我们还将通过基于我们将要执行的实现创建小型的自定义框架作为一个可以复用的组件。锦上添花我们将要把自定义框架制作为cocoaPods分发并展示它所需要的所有集成步骤，感兴趣吗？</p>
-<a id="more"></a>
 <h2 id="示例项目概述"><a href="#示例项目概述" class="headerlink" title="示例项目概述"></a>示例项目概述</h2><p>今天我们将运行一个简单的项目就是在表示图里展示网络相关信息。具体地说，应用程序将显示设备是否连接上任何的网络接口（Wi-Fi，蜂窝，等），接口类型是什么，所有可获取的接口类型，考虑是否使用当前接口作为昂贵的操作，我们将在接下来讨论更多关于所以这些事情。</p>
 <p><img src="https://www.appcoda.com/wp-content/uploads/2019/07/t66_1_first_sample.png" alt="png"></p>
 <p>以上所述都是我们预先工作的结果，接下来我们将实现一个自定义的类并命名为NetStatus，在这个类里我们利用iOS SDK中的etwork框架，创建一个自定义的，容易使用的API，可以从那里集成到任意应用程序中去。我们使用Network框架并不需要做太多的事情，所以我们实现的任务将很快可以完成。这是一个好消息，因为我们将有机会基于NetStatus类创建一个小型自定义框架，以便我们可以在各种iOS项目中轻松使用它。</p>
