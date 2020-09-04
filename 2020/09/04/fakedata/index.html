@@ -83,16 +83,21 @@
 
 
 
-<meta name="description" content="love &amp; peace">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jesse&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/07/index.html">
+<meta name="description" content="在做项目中很多时候都要自己手动添加假数据来做测试使用，目前都是直接写到代码里面，等测试后在手动删除，一个是这样不安全，二是数据分散十分不方便，而且也确实在真实项目上线中被坑到（确实是很容易忘记呢），那么有什么好的方法能够不污染代码就能拿到假数据呢？通过网络上查阅相关文章大致有以下几种： 1.直接写到代码里（这是目前用的，污染最严重，最不安全的） 2.添加条件宏编译只在DEBUG添加下才使用（不过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何添加无污染的假数据">
+<meta property="og:url" content="http://yoursite.com/2020/09/04/fakedata/index.html">
 <meta property="og:site_name" content="Jesse&#39;s Blog">
-<meta property="og:description" content="love &amp; peace">
+<meta property="og:description" content="在做项目中很多时候都要自己手动添加假数据来做测试使用，目前都是直接写到代码里面，等测试后在手动删除，一个是这样不安全，二是数据分散十分不方便，而且也确实在真实项目上线中被坑到（确实是很容易忘记呢），那么有什么好的方法能够不污染代码就能拿到假数据呢？通过网络上查阅相关文章大致有以下几种： 1.直接写到代码里（这是目前用的，污染最严重，最不安全的） 2.添加条件宏编译只在DEBUG添加下才使用（不过">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://xiejuqiang.github.io/uploads/fakedata.jpeg">
+<meta property="og:image" content="https://xiejuqiang.github.io/uploads/maplocal.jpg">
+<meta property="og:image" content="https://xiejuqiang.github.io/uploads/mapsetting.jpg">
+<meta property="og:updated_time" content="2020-09-04T10:05:01.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jesse&#39;s Blog">
-<meta name="twitter:description" content="love &amp; peace">
+<meta name="twitter:title" content="如何添加无污染的假数据">
+<meta name="twitter:description" content="在做项目中很多时候都要自己手动添加假数据来做测试使用，目前都是直接写到代码里面，等测试后在手动删除，一个是这样不安全，二是数据分散十分不方便，而且也确实在真实项目上线中被坑到（确实是很容易忘记呢），那么有什么好的方法能够不污染代码就能拿到假数据呢？通过网络上查阅相关文章大致有以下几种： 1.直接写到代码里（这是目前用的，污染最严重，最不安全的） 2.添加条件宏编译只在DEBUG添加下才使用（不过">
+<meta name="twitter:image" content="https://xiejuqiang.github.io/uploads/fakedata.jpeg">
 
 
 
@@ -122,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2019/07/">
+  <link rel="canonical" href="http://yoursite.com/2020/09/04/fakedata/">
 
 
 
 
 
-  <title>归档 | Jesse's Blog</title>
+  <title>如何添加无污染的假数据 | Jesse's Blog</title>
   
 
 
@@ -159,7 +164,7 @@
     
   
 
-  <div class="container sidebar-position-right page-archive">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -263,72 +268,221 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 6 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/04/fakedata/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jesse">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/07/31/NetworkFamework/" itemprop="url">
-              
-                <span itemprop="name">iOS 网络框架：如何监测网络状态变化</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">如何添加无污染的假数据</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-31T15:41:39+08:00" content="2019-07-31">
-          07-31
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-04T15:15:21+08:00">
+                2020-09-04
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/常见问题/" itemprop="url" rel="index">
+                    <span itemprop="name">常见问题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/09/04/fakedata/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/09/04/fakedata/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/09/04/fakedata/" class="leancloud_visitors" data-flag-title="如何添加无污染的假数据">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p><img src="https://xiejuqiang.github.io/uploads/fakedata.jpeg" alt="fakedata"></p>
+<p>在做项目中很多时候都要自己手动添加假数据来做测试使用，目前都是直接写到代码里面，等测试后在手动删除，一个是这样不安全，二是数据分散十分不方便，而且也确实在真实项目上线中被坑到（确实是很容易忘记呢），那么有什么好的方法能够不污染代码就能拿到假数据呢？通过网络上查阅相关文章大致有以下几种：</p>
+<p>1.直接写到代码里（这是目前用的，污染最严重，最不安全的）</p>
+<p>2.添加条件宏编译只在DEBUG添加下才使用（不过这种还是比较污染的）</p>
+<p>3.利用单元测试的网络请求stub做假数据（可以使用<a href="https://github.com/AliSoftware/OHHTTPStubs" target="_blank" rel="noopener">OHHTTPStubs</a>）</p>
+<p>4.动态注入数据，现在比较流行的是 <a href="https://github.com/johnno1962/injectionforxcode" target="_blank" rel="noopener">injectionforxcode</a>和<a href="https://github.com/DyCI/dyci-main" target="_blank" rel="noopener">dyci-main</a>两个库（这个我没试过，不过看了相关文章说是不好用）</p>
+<p>5.自己搭建一个本地服务器还做测试，不过这个门槛搞来一些，不过感兴趣的还是可以搞一搞。</p>
+<p>6.使用网络代理软件来拦截请求替换为本地文件（这边用到的就是大家常用的抓包工具Charles）。</p>
+<p>现在就重点来说说第六种方法的实现，而且是最没污染的方式，以后项目中也会按这种方式进行，以保证不污染代码，避免不必要的bug事件。</p>
+<p>这是使用的是Charles的 Map Local功能如图：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/maplocal.jpg" alt="maplocal"></p>
+<p>打开以后添加网络请求的host、path或者是完整的URL都行，在LocalPath一栏里添加本地JSON文件做测试数据，然后记得勾选Enable MapLocal。</p>
+<p><img src="https://xiejuqiang.github.io/uploads/mapsetting.jpg" alt="mapsetting"></p>
+<p>这样简单设置以后就能发现请求接口返回的数据都是你本地的测试数据了。每次只要改本地json文件数据，请求以后就立马更新，爽到不行啊。不过这里可能还要介绍一下如何是用Charles获取https的请求数据。我单独写一篇博文吧。over~</p>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpeg" alt="Jesse 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/31/hexo-next主题相册功能搭建/" rel="next" title="hexo-next主题相册功能搭建">
+                <i class="fa fa-chevron-left"></i> hexo-next主题相册功能搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -336,6 +490,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -605,6 +766,12 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe.min.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/photoswipe-ui-default.min.js?v=5.1.4"></script>
+
+
 
   
 
