@@ -278,6 +278,190 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/07/Charles/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jesse">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jesse's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/09/07/Charles/" itemprop="url">ios使用Charles抓包</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-07T11:31:11+08:00">
+                2020-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/09/07/Charles/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/09/07/Charles/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/09/07/Charles/" class="leancloud_visitors" data-flag-title="ios使用Charles抓包">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>1.官网上下载安装包安装<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.charlesproxy.com" target="_blank" rel="noopener">Charles官网</a></p>
+<p>2.自行百度下载破解版安装。</p>
+<h2 id="二、抓包设置"><a href="#二、抓包设置" class="headerlink" title="二、抓包设置"></a>二、抓包设置</h2><h3 id="1-获取PC的IP地址"><a href="#1-获取PC的IP地址" class="headerlink" title="1.获取PC的IP地址"></a>1.获取PC的IP地址</h3><p>在Charles<code>菜单栏 -&gt; Help -&gt; Local IP Address</code>中可以查看PC的IP地址。图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/en1.jpg" alt="en1"></p>
+<p>也可以在Mac终端使用命令<code>ifconfig en1</code>查看PC的IP地址。图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/ifconfigen1.jpg" alt="ifconfig"></p>
+<h3 id="2-配置iPhone的代理"><a href="#2-配置iPhone的代理" class="headerlink" title="2.配置iPhone的代理"></a>2.配置iPhone的代理</h3><p>在iPhone的<code>设置 -&gt; 无线局域网 -&gt; 局域网信息(i) -&gt; 配置代理 -&gt; 手动</code>中配置代理，服务器输入框中填写PC的IP地址，端口输入框中填写Charles的代理端口（一般是8888）。图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/delegatenet.jpeg" alt="delegatenet"></p>
+<p>具体的端口可以从Charles<code>菜单栏 -&gt; Proxy -&gt; Proxy Settings</code>中查看。图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/proxysetting8888.jpg" alt="proxysetting8888"></p>
+<p>iPhone代理配置完成后，Charles会弹出连接提示框，点击<code>Allow</code>之后即可使用Charles对从该iPhone发出的请求进行抓包了。图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/allow.jpg" alt="allow"></p>
+<p><strong><em>目前是http链接的抓包，下面说说https的抓包</em></strong></p>
+<h2 id="https的抓包配置"><a href="#https的抓包配置" class="headerlink" title="https的抓包配置"></a>https的抓包配置</h2><h3 id="1-mac端安装证书"><a href="#1-mac端安装证书" class="headerlink" title="1.mac端安装证书"></a>1.mac端安装证书</h3><p>在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate</code>中可以为PC安装证书，证书可以在Mac的钥匙串中查看 ，双击证书并都设置为 <code>始终信任</code>图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/cert.jpg" alt="cert"></p>
+<h3 id="2-iPhone安装证书"><a href="#2-iPhone安装证书" class="headerlink" title="2.iPhone安装证书"></a>2.iPhone安装证书</h3><p>在iPhone浏览器中访问<code>http://charlesproxy.com/getssl</code>可以下载证书并安装。此地址一般不会变化，可以在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</code>中查看最新的官方证书下载地址。图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/iphonecert.jpg" alt="iphonecert"></p>
+<p>基于iOS的证书信任机制，在安装完成并信任证书后，需要到iPhone<code>设置 -&gt; 关于本机 -&gt; 证书信任设置</code>中启用根证书。图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/certtrust.jpeg" alt="certtrust"></p>
+<h3 id="3-启动抓包SSL权限"><a href="#3-启动抓包SSL权限" class="headerlink" title="3.启动抓包SSL权限"></a>3.启动抓包SSL权限</h3><p>在Charles<code>菜单栏 -&gt; Proxy -&gt; SSL Proxying Settings</code>中勾选<code>Enable SSL Proxying</code>，然后在<code>Locations</code>中添加需要抓包的Host和Port即可。图示如下：</p>
+<p><img src="https://xiejuqiang.github.io/uploads/openssl.jpg" alt="openssl"></p>
+<p>这样基本的抓包设置就已经完成了，可以开心的抓包了哦~</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/04/fakedata/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1334,7 +1518,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1345,7 +1529,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
